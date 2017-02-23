@@ -1,5 +1,6 @@
 <?php
 Class Login extends MY_controller{
+  
  function __construct()
     {
        

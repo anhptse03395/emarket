@@ -20,7 +20,7 @@
 						<div style="color: red;text-align: center;font-weight:bold"> <?php echo form_error('login') ;?> </div>
 						
 						
-						<h2>Login to your account</h2>
+						<h2>Đăng nhập bằng tài khoản</h2>
 						<form action="<?php echo user_url('login') ?>" method="post">
 							<input placeholder="Email Address" type="text" name="email">
 							<input placeholder="Password" type="password" name="password">
@@ -38,7 +38,17 @@
 				</div>
 				<div class="col-sm-4">
 					<div class="signup-form"><!--sign up form-->
-						<h2>New User Signup!</h2>
+						<h2>Đăng kí tài khoản mơi!</h2>
+						<?php  $message = $this->session->flashdata('message');
+						?>
+
+						<?php if(isset($message) && $message):?>
+							<div class="nNote nInformation hideit">
+								<p><strong> </strong><?php echo $message?></p>
+							</div>
+						<?php endif;?>
+
+
 						<form action="<?php echo user_url('register') ?>" method="post">
 							<input placeholder="Name" type="text" name="r_name" value="<?php echo set_value('r_name')?>">
 							<div class="clear error" name="name_error"><?php echo form_error('r_name')?></div>

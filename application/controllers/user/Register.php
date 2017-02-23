@@ -32,14 +32,14 @@ Class Register extends MY_controller{
 		$this->load->library('form_validation');
 		$this->load->helper('form');
 
+
         //neu ma co du lieu post len thi kiem tra
 		if($this->input->post())
 		{
 			$this->form_validation->set_rules('r_name', 'Tên', 'required|min_length[8]');
 			$this->form_validation->set_rules('r_email', 'Email đăng nhập', 'required|callback_check_email');
-			$this->form_validation->set_rules('r_phone', 'Số điện thoại', 'required|min_length[8]');
-			$this->form_validation->set_rules('r_address', 'Địa chỉ', 'required|min_length[8]');
-			
+			$this->form_validation->set_rules('r_phone', 'Số điện thoại', 'required|min_length[8]|numeric');
+			$this->form_validation->set_rules('r_address', 'Địa chỉ', 'required|min_length[8]');		
 			$this->form_validation->set_rules('r_password', 'Mật khẩu', 'required|min_length[6]');
 			$this->form_validation->set_rules('r_repassword', 'Nhập lại mật khẩu', 'matches[r_password]');
 
@@ -63,12 +63,12 @@ Class Register extends MY_controller{
 				if($this->user_model->create($data))
 				{ 
                     //tạo ra nội dung thông báo
-					$this->session->set_flashdata('message', 'Thêm mới dữ liệu thành công');
+					$this->session->set_flashdata('message', 'Đăng kí thành viên thành công');
 				}else{
-					$this->session->set_flashdata('message', 'Không thêm được');
+					$this->session->set_flashdata('message', 'Không đăng kí được ');
 				}
                 //chuyen tới trang danh sách quản trị viên
-				redirect(base_url('home'));
+				redirect(user_url('register'));
 			}
 		}
 		$this->load->view('site/login/index');
