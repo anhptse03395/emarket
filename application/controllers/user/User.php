@@ -12,7 +12,7 @@ Class User extends MY_Controller
     /*
      * Lay danh sach admin
      */
- /*   function index()
+    function index()
     {
         $input = array();
         $list = $this->admin_model->get_list($input);
@@ -27,7 +27,7 @@ Class User extends MY_Controller
         
         $this->data['temp'] = 'admin/admin/index';
         $this->load->view('admin/main', $this->data);
-    }*/
+    }
     
     /*
      * Kiểm tra username đã tồn tại chưa
