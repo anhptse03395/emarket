@@ -24,11 +24,11 @@
 						<form action="<?php echo user_url('login') ?>" method="post">
 							<input placeholder="Email Address" type="text" name="email">
 							<input placeholder="Password" type="password" name="password">
-							<span>
-								<input class="checkbox" type="checkbox"> 
-								Keep me signed in
-							</span>
+							
 							<button type="submit"  class="btn btn-default">Login</button>
+							<span>
+								<a href="<?php echo user_url('forgotpassword') ?>">quen mat khau click vao đây </a>
+							</span>
 
 						</form>
 					</div><!--/login form-->

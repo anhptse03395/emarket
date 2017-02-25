@@ -27,7 +27,7 @@ Class Register extends MY_controller{
 
 
 
-	function sendmail()
+	function sendmail($email)
 	{
 
 
@@ -53,7 +53,7 @@ Class Register extends MY_controller{
 		//	$this->email->initialize($config);
 		$this->email->set_newline("\r\n");
 	    	$this->email->from('anhptse03395@gmail.com'); // change it to yours
-	    	$this->email->to('anhptse03395@gmail.com');// change it to yours
+	    	$this->email->to($email);// change it to yours
 	    	$this->email->subject('Day la thu dang ki tai khoan cua ban');
 	    	$this->email->message($message);
 	    	if($this->email->send())
@@ -109,7 +109,7 @@ Class Register extends MY_controller{
 	    				);
 	    			if($this->user_model->create($data))
 	    			{ 
-	    					$this->sendmail();
+	    					$this->sendmail($email);
                     //tạo ra nội dung thông báo
 	    				$this->session->set_flashdata('message', 'Đăng kí thành viên thành công');
 	    			}else{
