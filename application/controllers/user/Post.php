@@ -37,22 +37,28 @@ Class Post extends MY_controller{
 				$title = $this->input->post('p_title');
 				$content =$this->input->post('p_content');
 
+				$user_id = $this->session->userdata('user_id');
 
 
+				$this->load->library('upload_library');
+				$upload_path = './upload/product';
+				$upload_data = $this->upload_library->upload($upload_path, 'image');  
+				$image_link = '';
+
+				$image_list = array();
+				$image_list = $this->upload_library->upload_file($upload_path, 'image_list');
+				$image_list = json_encode($image_list);
 				
-				$object = new StdClass;
-				$object=$this->user_model->get_info_rule($data) ;
-				$arraylist	= (array) $object ;
-				$id=	$arraylist['id'];
-
-
 				$data = array(
 					'name'  =>  $name,
 					'email' =>  $email,
+					'image_link' => $image_link,
+					'image_list' => $image_list,
 					'address'=> $address,
 					'phone' =>  $phone,
 					'title' =>  $title,
 					'content'=> $content,
+					'user_id'=>	$user_id,
 					);
 				if($this->dangtin_model->create($data))
 				{

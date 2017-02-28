@@ -18,27 +18,50 @@
 					<div class="login-form"><!--login form-->
 						
 						<h2>Dang thong tin san pham</h2>
-                        <?php  $message = $this->session->flashdata('message');
-                        ?>
-                        <?php if(isset($message) && $message):?>
-                            <div class="nNote nInformation hideit">
-                                <p><strong> </strong><?php echo $message?></p>
-                            </div>
-                        <?php endif;?>
+						<?php  $message = $this->session->flashdata('message');
+						?>
+						<?php if(isset($message) && $message):?>
+							<div class="nNote nInformation hideit">
+								<p><strong> </strong><?php echo $message?></p>
+							</div>
+						<?php endif;?>
 
 						<form action="<?php echo user_url('post') ?>" method="post">
 							<input placeholder="Tên" type="text" name="p_name" value="<?php echo set_value('p_name')?>">
-                            <div class="clear error" name="name_error"><?php echo form_error('p_name')?></div>
+							<div class="clear error" name="name_error"><?php echo form_error('p_name')?></div>
 							<input placeholder="Email " type="text" name="p_email"value="<?php echo set_value('p_email')?>">
-                            <div class="clear error" name="name_error"><?php echo form_error('p_email')?></div>
+							<div class="clear error" name="name_error"><?php echo form_error('p_email')?></div>
 							<input placeholder="PhoneNuber" type="text" name="p_phone" value="<?php echo set_value('p_phone')?>">
-                            <div class="clear error" name="name_error"><?php echo form_error('p_phone')?></div>
+							<div class="clear error" name="name_error"><?php echo form_error('p_phone')?></div>
 							<input placeholder="Address" type="text" name="p_address" value="<?php echo set_value('p_address')?>">
-                            <div class="clear error" name="name_error"><?php echo form_error('p_address')?></div>
+							<div class="clear error" name="name_error"><?php echo form_error('p_address')?></div>
 							<input placeholder="Title" type="text" name="p_title" value="<?php echo set_value('p_title')?>">
-                            <div class="clear error" name="name_error"><?php echo form_error('p_title')?></div>
+							<div class="clear error" name="name_error"><?php echo form_error('p_title')?></div>
 							<input placeholder="Content" type="text" name="p_content" value="<?php echo set_value('p_content')?>">
-                            <div class="clear error" name="name_error"><?php echo form_error('p_content')?></div>
+							<div class="clear error" name="name_error"><?php echo form_error('p_content')?></div>
+
+							<div class="formRow">
+							<label class="formLeft">Hình ảnh:<span class="req"></span></label>
+								<div class="formRight">
+									<div class="left">
+										<input type="file" name="image" id="image" size="25">
+									</div>
+									<div class="clear error" name="image_error"></div>
+								</div>
+								<div class="clear"></div>
+							</div>
+
+							<div class="formRow">
+								<label class="formLeft">Ảnh kèm theo:</label>
+								<div class="formRight">
+									<div class="left">
+										<input type="file" multiple="" name="image_list[]" id="image_list" size="25" >
+									</div>
+									<div class="clear error" name="image_list_error"></div>
+								</div>
+								<div class="clear"></div>
+							</div>	
+
 							<button type="submit" class="btn btn-default">Post</button>
 						</form>
 					</div>

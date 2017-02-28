@@ -49,11 +49,11 @@ Class Test extends MY_controller{
 		 	echo $row->id;
 		 	echo $row->name;
 		 }
-		echo $this->db->last_query();
-		
-		$user = $this->session->userdata('userInfo');
-				echo  $user ;
+		 echo $this->db->last_query();
 
+				/*$user = $this->session->userdata('user_id');
+				echo  $user ;
+*/
 
 
 
