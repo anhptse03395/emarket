@@ -45,7 +45,7 @@ Class Login extends MY_controller{
     	if($this->user_model->check_exists($where))
     	{
         $this ->session ->set_userdata('userInfo',$email) ;
-        echo 'dang nhap thanh cong';
+      
 
         return true;
       }

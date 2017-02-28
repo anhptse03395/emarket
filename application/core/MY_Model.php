@@ -5,26 +5,48 @@ class MY_Model extends CI_Model {
 	var $table = '';
 	// key của table
 
-	var $key = 'id';
+   var $key = 'id';
 
 	// order mac dinh (vidu nhu order= array('id','desc'))
-	var $order='';
+   var $order='';
 
-	var $select = '';
+   var $select = '';
 
 
 
-    
-    function create($data)
-    {
+
+   function create($data)
+   {
         if($this->db->insert($this->table, $data))//thêm dữ liệu
         {
            return TRUE;
-        }else{
+       }else{
            return FALSE;
+       }
+   }
+
+
+   function join($input = array())
+   {
+
+      $this->get_list_set_input($input);
+//nếu có join tới bảng khác
+      if(isset($input['join']))
+      {
+        $this->db->from($this->table);
+        foreach ($input['join'] as $table)
+        {
+            $this->db->join($table, "$this->table.id = $table.user_id",'left');
         }
+        $query = $this->db->get();
+    }else{
+        $query = $this->db->get($this->table);
     }
- 
+//tra ve du lieu
+    return $query->result(); 
+
+}
+
     /**
     * Cap nhat row tu id
     */
@@ -36,9 +58,9 @@ class MY_Model extends CI_Model {
         }
         $where = array();
         $where['id'] = $id;//điều kiện khóa chính bằng $id truyền vào
-            return $this->update_rule($where, $data);
+        return $this->update_rule($where, $data);
     }
- 
+
     /**
     * Cap nhat row tu dieu kien
     * $where: điều kiện
@@ -56,14 +78,14 @@ class MY_Model extends CI_Model {
         }
         return FALSE;
     }
- 
+
      /**
      *Xoa row tu id
      */
      function delete($id)
      {
          if (!$id)
-                 {
+         {
              return FALSE;
          }
          if(is_numeric($id))//nếu $id là số
@@ -76,7 +98,7 @@ class MY_Model extends CI_Model {
          }
          return $this->del_rule($where);
      }
- 
+
      /**
      * Xoa row tu dieu kien
      */
@@ -103,12 +125,12 @@ class MY_Model extends CI_Model {
             return FALSE;
         }
         //where_in($cot, $mang_gia_tri)
-         $this->db->where_in($this->key,$where);
+        $this->db->where_in($this->key,$where);
         $this->db->delete($this->table);
- 
+
         return TRUE;
     }
- 
+
     /**
     * Lay thong tin cua row tu id
     * $id: Khóa chính muốn lấy thông tin
@@ -123,7 +145,7 @@ class MY_Model extends CI_Model {
         $where['id'] = $id;
         return $this->get_info_rule($where);
     }
- 
+
     /**
      * Lay thong tin cua row tu dieu kien
      * $where: Mảng điều kiện
@@ -138,7 +160,7 @@ class MY_Model extends CI_Model {
         }
         return FALSE;
     }
- 
+
     /**
     * Lay tong so
     */
@@ -151,7 +173,7 @@ class MY_Model extends CI_Model {
         //tra ve du lieu
         return $query->num_rows();
     }
- 
+
     /**
     * Lay danh sach
     */
@@ -164,7 +186,7 @@ class MY_Model extends CI_Model {
                 //tra ve du lieu
         return $query->result();
     }
- 
+
     /**
     * Gan cac thuoc tinh trong input khi lay danh sach
     */
@@ -173,46 +195,46 @@ class MY_Model extends CI_Model {
          // Select
      if (isset($input['select']))
      {
-          $this->db->select($input['select']);
-     }
+      $this->db->select($input['select']);
+  }
         // Thêm điều kiện cho câu truy vấn truyền qua biến $input['where']
- 
-        if ((isset($input['where'])) && $input['where'])
-        {
-            $this->db->where($input['where']);
-        }
+
+  if ((isset($input['where'])) && $input['where'])
+  {
+    $this->db->where($input['where']);
+}
                 // Thêm sắp xếp dữ liệu thông qua biến $input['order'] (ví dụ $input['order'] = array('id','DESC'))
-        if (isset($input['order'][0]) && isset($input['order'][1]))
-        {
-            $this->db->order_by($input['order'][0], $input['order'][1]);
-        }
-        else
-        {
+if (isset($input['order'][0]) && isset($input['order'][1]))
+{
+    $this->db->order_by($input['order'][0], $input['order'][1]);
+}
+else
+{
             //mặc định sẽ sắp xếp theo id giảm dần
-            $this->db->order_by('id', 'desc');
-        }
- 
+    $this->db->order_by('id', 'esc');
+}
+
         // Thêm điều kiện limit cho câu truy vấn thông qua biến $input['limit'] (ví dụ $input['limit'] = array('10' ,'0'))
-        if (isset($input['limit'][0]) && isset($input['limit'][1]))
-        {
-            $this->db->limit($input['limit'][0], $input['limit'][1]);
-        }
- 
-    }
- 
+if (isset($input['limit'][0]) && isset($input['limit'][1]))
+{
+    $this->db->limit($input['limit'][0], $input['limit'][1]);
+}
+
+}
+
     /**
     * kiểm tra sự tồn tại của dữ liệu theo 1 điều kiện nào đó
     */
     function check_exists($where = array())
     {
-         $this->db->where($where);
+     $this->db->where($where);
          //thuc hien cau truy van lay du lieu
-         $query = $this->db->get($this->table);
-      
-         if($query->num_rows() > 0){
-            return TRUE;
-         }else{
-            return FALSE;
-         }
+     $query = $this->db->get($this->table);
+
+     if($query->num_rows() > 0){
+        return TRUE;
+    }else{
+        return FALSE;
     }
+}
 }

@@ -100,13 +100,7 @@ Class Register extends MY_controller{
 
 
 
-	    			$data = array(
-	    				'name'     => $name,
-	    				'email' => $email,
-	    				'phone' => $phone,
-	    				'address' => $address,
-	    				'password' => md5($password)
-	    				);
+	    		                                                                                                                                                                                                                                                                                                                                                            
 	    			if($this->user_model->create($data))
 	    			{ 
 	    					$this->sendmail($email);

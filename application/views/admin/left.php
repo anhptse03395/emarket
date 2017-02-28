@@ -6,7 +6,7 @@
 	<div class="sideProfile">
 		<a href="#" title="" class="profileFace"><img width="40" src="<?php echo public_url('admin') ?>/images/user.png"></a>
 		<span>Xin chào: <strong>admin!</strong></span>
-		<span><?php $user = $this->session->userdata('userInfo');
+		<span><?php $user = $this->session->userdata('admininfo');
 			echo  $user ;
 			?></span>
 			<div class="clear"></div>

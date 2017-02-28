@@ -38,7 +38,7 @@ Class Login extends MY_controller{
     	$where = array('username' => $username , 'password' => $password);
     	if($this->admin_model->check_exists($where))
     	{
-    			$this ->session ->set_userdata('userInfo',$username) ;
+    			$this ->session ->set_userdata('admininfo',$username) ;
     		
     		return true;
     	}

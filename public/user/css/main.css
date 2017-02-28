@@ -1523,6 +1523,14 @@ h2.title {
 
 /* page post css */
 
+#form_post {
+  display: block;
+  margin-bottom: 100px;
+  margin-top: 10px;
+  overflow: hidden;
+ 
+
+}
 
 
 

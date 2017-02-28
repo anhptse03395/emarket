@@ -16,7 +16,7 @@
 			<?php $this->load->view('site/slider'); ?>
 		</section>
 		<section>
-			<?php   $this->load->view($temp); ?>			
+					
 		</section>
 		
 

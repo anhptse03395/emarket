@@ -122,7 +122,7 @@
 						<a title="Xem chi tiết sản phẩm" class="tipS" target="_blank" href="product/view/9.html">
 								<img src="<?php echo public_url('admin/images')?>/icons/color/view.png">
 						 </a>
-						 <a class="tipS" title="Chỉnh sửa" href="admin/product/edit/9.html">
+						 <a class="tipS" title="Chỉnh sửa" href="<?php echo admin_url('product/edit/'.$row->id)?>">
 							<img src="<?php echo public_url('admin/images')?>/icons/color/edit.png">
 						</a>
 						

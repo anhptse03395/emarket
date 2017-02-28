@@ -31,17 +31,7 @@
 					</div>
 					<div class="clear"></div>
 				</div>
-
-<!-- 
-				<div class="formRow">
-					<label for="param_username" class="formLeft">Password:<span class="req">*</span></label>
-					<div class="formRight">
-						<span class="oneTwo"><input type="password" _autocheck="true" id="param_password" name="password"></span>
-						<span class="autocheck" name="name_autocheck"></span>
-						<div class="clear error" name="name_error"><?php echo form_error('password')?></div>
-					</div>
-					<div class="clear"></div>
-				</div> -->
+		
 
 
 				<div class="formRow">

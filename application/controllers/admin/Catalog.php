@@ -86,6 +86,7 @@ Class Catalog extends MY_Controller
     
         //lay id danh mục
         $id = $this->uri->rsegment(3);
+        pre($id);
         $info = $this->catalog_model->get_info($id);
         if(!$info)
         {
