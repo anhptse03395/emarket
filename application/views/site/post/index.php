@@ -27,18 +27,25 @@
 						<?php endif;?>
 
 						<form action="<?php echo user_url('post') ?>"  method="post" enctype="multipart/form-data" >
-							<input placeholder="Tên" type="text" name="p_name" value="<?php echo set_value('p_name')?>">
-							<div class="clear error" name="name_error"><?php echo form_error('p_name')?></div>
-							<input placeholder="Email " type="text" name="p_email"value="<?php echo set_value('p_email')?>">
-							<div class="clear error" name="name_error"><?php echo form_error('p_email')?></div>
-							<input placeholder="PhoneNuber" type="text" name="p_phone" value="<?php echo set_value('p_phone')?>">
-							<div class="clear error" name="name_error"><?php echo form_error('p_phone')?></div>
-							<input placeholder="Address" type="text" name="p_address" value="<?php echo set_value('p_address')?>">
-							<div class="clear error" name="name_error"><?php echo form_error('p_address')?></div>
+							 <?php foreach ($info as $row):?>
+						
+							<input  type="text" name="p_name" style="text-align: center; " value="<?php echo $row->name?>">
+							
+							<input  type="text" name="p_email" style="text-align: center; " value="<?php echo $row->email?>">
+							
+							<input  type="text" name="p_phone" style="text-align: center; " value="<?php echo $row->phone?>">
+
+							<?php endforeach;?>
+							
+							
+
 							<input placeholder="Title" type="text" name="p_title" value="<?php echo set_value('p_title')?>">
 							<div class="clear error" name="name_error"><?php echo form_error('p_title')?></div>
 							<input placeholder="Content" type="text" name="p_content" value="<?php echo set_value('p_content')?>">
 							<div class="clear error" name="name_error"><?php echo form_error('p_content')?></div>
+
+							<input placeholder="Address" type="text" name="p_address" value="<?php echo set_value('p_address')?>">
+							<div class="clear error" name="name_error"><?php echo form_error('p_address')?></div>
 
 							<div class="formRow">
 							<label class="formLeft">Hình ảnh:<span class="req"></span></label>

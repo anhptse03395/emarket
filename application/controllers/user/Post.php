@@ -15,6 +15,17 @@ Class Post extends MY_controller{
 		$this->load->library('form_validation');
 		$this->load->helper('form');
 
+
+		 $this->load->model('user_model');
+		$user_id = $this->session->userdata('user_id');
+
+
+		$input['where'] =  array('id' => $user_id );
+		$info= $this->user_model->get_list($input);
+		$this ->data['info']=$info;
+		
+		
+
         //neu ma co du lieu post len thi kiem tra
 		if($this->input->post())
 
@@ -44,11 +55,11 @@ Class Post extends MY_controller{
 				$upload_path = './upload/product';
 				$upload_data = $this->upload_library->upload($upload_path, 'image');  
 				$image_link = '';
-				  if(isset($upload_data['file_name']))
-                {
-                    $image_link = $upload_data['file_name'];
-                }
-                
+				if(isset($upload_data['file_name']))
+				{
+					$image_link = $upload_data['file_name'];
+				}
+
 
 				$image_list = array();
 				$image_list = $this->upload_library->upload_file($upload_path, 'image_list');
@@ -79,7 +90,7 @@ Class Post extends MY_controller{
 			
 		}
 
-		$this->load->view('site/post/index');
+		$this->load->view('site/post/index',$this->data);
 
 
 	}

@@ -3,7 +3,8 @@
 
 <div class="line"></div>
 
-<div id="main_product" class="wrapper">
+
+<div id="main_product" class="wrapper" width="100%"	>
 	<div class="widget">
 	
 		<div class="title">
@@ -21,8 +22,8 @@
 					<table width="80%" cellspacing="0" cellpadding="0"><tbody>
 					
 						<tr>
-							<td style="width:40px;" class="label"><label for="filter_id">Mã số</label></td>
-							<td class="item"><input type="text" style="width:55px;" id="filter_id" value="<?php echo $this->input->get('id')?>" name="id"></td>
+							<td style="width:40px; color: red" class="label"><label for="filter_id">Mã số</label></td>
+							<td class="item"><input type="text" style="width:40px;" id="filter_id" value="<?php echo $this->input->get('id')?>" name="id"></td>
 							
 							<td style="width:40px;" class="label"><label for="filter_id">Tên</label></td>
 							<td style="width:155px;" class="item"><input type="text" style="width:155px;" id="filter_iname" value="<?php echo $this->input->get('name')?>" name="name"></td>
@@ -48,7 +49,7 @@
 							
 							<td style="width:150px">
 							<input type="submit" value="Lọc" class="button blueB">
-							<input type="reset" onclick="window.location.href = '<?php echo user_url('listproduct')?>'; " value="Reset" class="basic">
+							<input type="reset" onclick="window.location.href = '<?php echo admin_url('product')?>'; " value="Reset" class="basic">
 							</td>
 							
 						</tr>

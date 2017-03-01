@@ -17,7 +17,5 @@
 	
 	<div class="clear"></div>
 </body>
-<footer>
 
-</footer>
 </html>

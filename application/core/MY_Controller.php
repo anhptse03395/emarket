@@ -22,9 +22,9 @@ Class MY_Controller extends CI_Controller
                  case 'user' :
                 {
                     //xu ly cac du lieu khi truy cap vao trang admin
-                   /* $this->load->helper('user');
+                   $this->load->helper('user');
                     $this->user_check_login();
-                    break;*/
+                    break;
                 }
             default:
                 {
@@ -58,25 +58,25 @@ Class MY_Controller extends CI_Controller
             redirect(admin_url('home'));
         }
     }
-   /*   private function user_check_login()
+     private function user_check_login()
     {
         $controller = $this->uri->rsegment('1');
         $controller = strtolower($controller);
         
-        $login = $this->session->userdata('login');
+        $login = $this->session->userdata('user_login');
         //neu ma chua dang nhap,ma truy cap 1 controller khac login
-        if(!$login && $controller != 'login')
+        if(!$login && $controller == 'post')
         {
-            redirect(admin_url('login'));
+            redirect(user_url('login'));
         }
         //neu ma admin da dang nhap thi khong cho phep vao trang login nua.
         if($login && $controller == 'login')
 
         {
             
-            redirect(admin_url('home'));
+            redirect(base_url('home'));
         }
-    }*/
+    }
 
 }
 

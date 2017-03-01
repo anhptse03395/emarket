@@ -34,6 +34,28 @@ Class Test2 extends MY_Controller
   
       
     }
+
+
+    function ad(){
+
+            $rsInfo = $this->user_model->getInfo($this->session->userdata('user_id'));
+            if(!empty($rsInfo )){
+                $data = array(
+                    'id'=>$rsInfo['id'],
+                    'name'=>$rsInfo['name'],
+                    'email'=>$rsInfo['email'],
+
+                );
+            }else{
+                $this->session->unset_userdata('id');
+               $name = $this->session->userdata('name');
+               $email = $this->session->userdata('email');
+
+            }
+
+    }
     
     }
+
+
 
