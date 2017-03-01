@@ -211,7 +211,7 @@ if (isset($input['order'][0]) && isset($input['order'][1]))
 else
 {
             //mặc định sẽ sắp xếp theo id giảm dần
-    $this->db->order_by('id', 'esc');
+    $this->db->order_by('id', 'desc');
 }
 
         // Thêm điều kiện limit cho câu truy vấn thông qua biến $input['limit'] (ví dụ $input['limit'] = array('10' ,'0'))

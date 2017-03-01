@@ -52,7 +52,6 @@ function index()
         $user_id= $arraylist['id'];
 
         $this ->session ->set_userdata('user_id',$user_id) ;
-
         $this ->session ->set_userdata('userInfo',$email) ;
 
 

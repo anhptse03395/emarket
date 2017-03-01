@@ -97,7 +97,13 @@ Class Register extends MY_controller{
 	    			$address = $this->input->post('r_address');
 	    			$password = $this->input->post('r_password');
 
+	    				$data = array('name' =>$name ,
+	    					'email' => $email,
+	    					'phone' => $phone,
+	    					'address'=>$address,
+	    					'password' => md5($password),
 
+	    				 );
 
 
 	    		                                                                                                                                                                                                                                                                                                                                                            

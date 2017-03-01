@@ -1,23 +1,33 @@
-<!-- head -->
-<?php $this->load->view('admin/product/head', $this->data)?>
+<html >
+<head>
+	<?php 
+	$this->load->view('site/head');
+	?>
 
-<div class="line"></div>
+</head>
 
-<div id="main_product" class="wrapper">
+<body >
+	<div id="header">
+		<?php $this->load->view('site/header'); ?>
+	</div>
+
+	<div class="line"></div>
+
+<div id="main_product" class="wrapper" >
 	<div class="widget">
 	
 		<div class="title">
-			<span class="titleIcon"><input type="checkbox" name="titleCheck" id="titleCheck"></span>
+		
 			<h6>
 				Danh sách sản phẩm			
 			</h6>
-		 	<div class="num f12">Số lượng: <b><?php echo $total_rows?></b></div>
+		 	
 		</div>
 		
-		<table width="100%" cellspacing="0" cellpadding="0" id="checkAll" class="sTable mTable myTable">
+		<table width="100%"  cellspacing="0" cellpadding="0" id="checkAll" class="sTable mTable myTable">
 			
 			<thead class="filter"><tr><td colspan="6">
-				<form method="get" action="<?php echo admin_url('product')?>" class="list_filter form">
+				<form method="get" action="<?php echo user_url('listproduct')?>" class="list_filter form">
 					<table width="80%" cellspacing="0" cellpadding="0"><tbody>
 					
 						<tr>
@@ -62,8 +72,7 @@
 					<td style="width:60px;">Mã số</td>
 					<td>Tên</td>
 					<td>Giá</td>
-					<td style="width:75px;">Ngày tạo</td>
-					<td style="width:120px;">Hành động</td>
+					
 				</tr>
 			</thead>
 			
@@ -100,35 +109,17 @@
 					    <b><?php echo $row->name?></b>
 					</a>
 					
-					<div class="f11">
-					  Đã bán: <?php echo $row->buyed?>	| Xem: <?php echo $row->view?>					
-					 </div>
+					
 						
 					</td>
 					
-					<td class="textR">
-					    <?php if($row->discount > 0):?>
-					       <?php $price_new = $row->price - $row->discount;?>
-					       <b style="color:red"><?php echo number_format($price_new)?> đ</b>
-					       <p style="text-decoration:line-through"><?php echo number_format($row->price)?> đ</p>
-					    <?php else:?>
-					        <b style="color:red"><?php echo number_format($row->price)?> đ</b>
-					    <?php endif;?>   				
-					</td>
 					
-					<td class="textC">01-01-1970</td>
+				
 					
 					<td class="option textC">
 						<a title="Xem chi tiết sản phẩm" class="tipS" target="_blank" href="product/view/9.html">
 								<img src="<?php echo public_url('admin/images')?>/icons/color/view.png">
 						 </a>
-						 <a class="tipS" title="Chỉnh sửa" href="<?php echo admin_url('product/edit/'.$row->id)?>">
-							<img src="<?php echo public_url('admin/images')?>/icons/color/edit.png">
-						</a>
-						
-						<a class="tipS verify_action" title="Xóa" href="admin/product/del/9.html">
-						    <img src="<?php echo public_url('admin/images')?>/icons/color/delete.png">
-						</a>
 					</td>
 				</tr>
 				<?php endforeach;?>
@@ -140,3 +131,15 @@
 </div>
 
 
+
+
+	<link href="<?php echo public_url('user')?>/css/main.css" rel="stylesheet">
+	<script src="<?php echo public_url('user')?>/js/jquery.js"></script>
+	<script src="<?php echo public_url('user') ?>/js/bootstrap.min.js"></script>
+	<script src="<?php echo public_url('user') ?>/js/jquery.scrollUp.min.js"></script>
+	<script src="<?php echo public_url('user') ?>/js/price-range.js"></script>
+	<script src="<?php echo public_url('user') ?>/js/jquery.prettyPhoto.js"></script>
+	<script src="<?php echo public_url('user') ?>/js/main.js"></script>
+
+</body>
+</html>

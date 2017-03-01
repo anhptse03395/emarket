@@ -44,6 +44,11 @@ Class Post extends MY_controller{
 				$upload_path = './upload/product';
 				$upload_data = $this->upload_library->upload($upload_path, 'image');  
 				$image_link = '';
+				  if(isset($upload_data['file_name']))
+                {
+                    $image_link = $upload_data['file_name'];
+                }
+                
 
 				$image_list = array();
 				$image_list = $this->upload_library->upload_file($upload_path, 'image_list');

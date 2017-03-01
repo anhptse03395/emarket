@@ -26,7 +26,7 @@
 							</div>
 						<?php endif;?>
 
-						<form action="<?php echo user_url('post') ?>" method="post">
+						<form action="<?php echo user_url('post') ?>"  method="post" enctype="multipart/form-data" >
 							<input placeholder="Tên" type="text" name="p_name" value="<?php echo set_value('p_name')?>">
 							<div class="clear error" name="name_error"><?php echo form_error('p_name')?></div>
 							<input placeholder="Email " type="text" name="p_email"value="<?php echo set_value('p_email')?>">
