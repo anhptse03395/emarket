@@ -6,7 +6,7 @@
 	<div class="widget">
 
 		<div class="title">
-	
+
 			<h6>Danh sach Admin</h6>
 			<div class="num f12">Tổng số: <b> <?php echo  $total ?></b></div>
 		</div>
@@ -59,12 +59,21 @@
 									<img src="<?php echo public_url('admin') ?>/images/icons/color/edit.png" />
 								</a>
 
+								
 
 
-								<a href="<?php echo admin_url('admin/delete/'.$row->id)?>" title="Xóa" class="tipS verify_action">
+
+								<SCRIPT LANGUAGE="JavaScript">
+									function confirmAction() {
+										return confirm("bạn có muốn xóa không?")
+									}
+								</SCRIPT>
+
+
+								<a  onclick="return confirmAction()" href="<?php echo admin_url('admin/delete/'.$row->id)?>" title="Xóa" class="tipS verify_action">
 									<img src="<?php echo public_url('admin')?>/images/icons/color/delete.png" />
 								</a>
-							
+
 
 							</td>
 						</tr>

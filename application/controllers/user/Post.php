@@ -14,16 +14,12 @@ Class Post extends MY_controller{
 
 		$this->load->library('form_validation');
 		$this->load->helper('form');
-
-
-		 $this->load->model('user_model');
+		$this->load->model('user_model');
 		$user_id = $this->session->userdata('user_id');
-
-
 		$input['where'] =  array('id' => $user_id );
 		$info= $this->user_model->get_list($input);
 		$this ->data['info']=$info;
-		
+		echo $info;
 		
 
         //neu ma co du lieu post len thi kiem tra

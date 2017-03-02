@@ -97,19 +97,19 @@ Class Register extends MY_controller{
 	    			$address = $this->input->post('r_address');
 	    			$password = $this->input->post('r_password');
 
-	    				$data = array('name' =>$name ,
-	    					'email' => $email,
-	    					'phone' => $phone,
-	    					'address'=>$address,
-	    					'password' => md5($password),
+	    			$data = array('name' =>$name ,
+	    				'email' => $email,
+	    				'phone' => $phone,
+	    				'address'=>$address,
+	    				'password' => md5($password),
 
-	    				 );
+	    				);
 
 
-	    		                                                                                                                                                                                                                                                                                                                                                            
+	    			
 	    			if($this->user_model->create($data))
 	    			{ 
-	    					$this->sendmail($email);
+	    				$this->sendmail($email);
                     //tạo ra nội dung thông báo
 	    				$this->session->set_flashdata('message', 'Đăng kí thành viên thành công');
 	    			}else{

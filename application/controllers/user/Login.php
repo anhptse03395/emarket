@@ -57,10 +57,9 @@ function index()
 
         return true;
       }
-      $this->form_validation->set_message(__FUNCTION__,'Không đăng nhập thành công');
+      $this->form_validation->set_message(__FUNCTION__,'Sai tên tài khoản hoặc mật khẩu');
       return false;
     }
-
 
 
   }

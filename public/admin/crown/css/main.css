@@ -110,7 +110,6 @@ p { padding-top: 12px; }
 #leftSide { background: url(../images/backgrounds/leftTop.png) repeat-x 0 0; margin: 0 2px; float: left; width: 216px; padding: 0 1px; padding-bottom: 60px; } 
 #rightSide { padding-bottom: 62px; overflow: hidden; }
 /* fix ccs user */
-#rightSide1 { padding-bottom: 62px; overflow: hidden; }
 
 .scroll { height: 182px; overflow: auto; }
 

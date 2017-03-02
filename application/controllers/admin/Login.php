@@ -13,7 +13,7 @@ Class Login extends MY_controller{
 			if($this->form_validation->run())
 			{
 				$this->session->set_userdata('login', true);
-			
+             
 
 				redirect(admin_url('home'));
 			}
@@ -38,11 +38,11 @@ Class Login extends MY_controller{
     	$where = array('username' => $username , 'password' => $password);
     	if($this->admin_model->check_exists($where))
     	{
-    			$this ->session ->set_userdata('admininfo',$username) ;
-    		
-    		return true;
-    	}
-    	$this->form_validation->set_message(__FUNCTION__, 'Không đăng nhập thành công');
-    	return false;
-    }
+         $this ->session ->set_userdata('admininfo',$username) ;
+         
+         return true;
+     }
+     $this->form_validation->set_message(__FUNCTION__, 'Không đăng nhập thành công');
+     return false;
+ }
 }

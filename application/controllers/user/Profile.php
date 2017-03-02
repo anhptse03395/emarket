@@ -2,16 +2,11 @@
 
 Class Profile extends MY_controller{
 
-    function __construct()
-    {
-        parent::__construct();
-        $this->load->model('user_model');
-        //$this->load->library('session');
-    }
+   
 
         function index(){
 
-            $rsInfo = $this->user_model->getInfo($this->session->userdata('user_id'));
+        /*    $rsInfo = $this->user_model->getInfo($this->session->userdata('user_id'));
             if(!empty($rsInfo )){
                 $data = array(
                     'id'=>$rsInfo['id'],
@@ -24,7 +19,7 @@ Class Profile extends MY_controller{
                 $rsInfo['name'] = $this->session->userdata('name');
                 $rsInfo['email'] = $this->session->userdata('email');
 
-            }
+            }*/
 
 
             $this->load->view('site/profile/index');
