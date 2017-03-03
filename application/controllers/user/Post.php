@@ -19,7 +19,7 @@ Class Post extends MY_controller{
 		$input['where'] =  array('id' => $user_id );
 		$info= $this->user_model->get_list($input);
 		$this ->data['info']=$info;
-		echo $info;
+	
 		
 
         //neu ma co du lieu post len thi kiem tra

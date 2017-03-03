@@ -1,12 +1,12 @@
 <?php
 Class Listproduct extends MY_Controller
 {
-  /*  function __construct()
+    function __construct()
     {
         parent::__construct();
         //load ra file model
         $this->load->model('product_model');
-    }*/
+    }
     
     /*
      * Hien thi danh sach san pham
@@ -14,7 +14,7 @@ Class Listproduct extends MY_Controller
     function index()
     {
         //lay tong so luong ta ca cac san pham trong websit
-        /*$total_rows = $this->product_model->get_total();
+        $total_rows = $this->product_model->get_total();
         $this->data['total_rows'] = $total_rows;
         
         //load ra thu vien phan trang
@@ -74,9 +74,9 @@ Class Listproduct extends MY_Controller
         
         //lay nội dung của biến message
         $message = $this->session->flashdata('message');
-        $this->data['message'] = $message;*/
+        $this->data['message'] = $message;
 
-         $this->load->view('site/listproduct/index');
+         $this->load->view('site/listproduct/index',$this->data);
 
         
         

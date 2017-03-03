@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html >
+
+<html>
 <head>
 	<?php 
 	$this->load->view('site/head');
@@ -7,118 +7,94 @@
 
 </head>
 
-<body >
+<body>
 	<div id="header">
 		<?php $this->load->view('site/header'); ?>
 	</div>
-
-	<section id="cart_items">
-
-		<div class="container">
-			<div class="breadcrumbs">
-				<ol class="breadcrumb">
-					<li><a href="#">Home</a></li>
-					<li class="active">Shopping Cart</li>
-				</ol>
-				
-			</div>
-			<div class="table-responsive cart_info">
-				<table class="table table-condensed">
-					<thead>
-						<tr class="cart_menu">
-							<td class="image">Item</td>
-							<td class="description"></td>
-							<td class="price">Price</td>
-							<td class="quantity">Quantity</td>
-							<td class="total">Total</td>
-							<td></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="cart_product">
-								<a href=""><img src="images/cart/one.png" alt=""></a>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
-								<p>Web ID: 1089772</p>
-							</td>
-							<td class="cart_price">
-								<p>$59</p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" name="quantity" value="1" autocomplete="off" size="2" type="text">
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
-
-						<tr>
-							<td class="cart_product">
-								<a href=""><img src="images/cart/two.png" alt=""></a>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
-								<p>Web ID: 1089772</p>
-							</td>
-							<td class="cart_price">
-								<p>$59</p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" name="quantity" value="1" autocomplete="off" size="2" type="text">
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
-						<tr>
-							<td class="cart_product">
-								<a href=""><img src="images/cart/three.png" alt=""></a>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
-								<p>Web ID: 1089772</p>
-							</td>
-							<td class="cart_price">
-								<p>$59</p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" name="quantity" value="1" autocomplete="off" size="2" type="text">
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+	<<div class="well-searchbox">
+	<form class="form-horizontal" role="form">
+		<div class="form-group">
+			<label class="col-md-4 control-label">Keyword</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" placeholder="Keyword">
 			</div>
 		</div>
 
 
-	</section>
+
+
+
+		<div class="form-group">
+			<label class="col-md-4 control-label">Category</label>
+			<div class="col-md-8">
+				<select class="form-control" placeholder="Category">
+					<option value="">All</option>
+					<option value="">Category 1</option>
+					<option value="">Category 2</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-sm-offset-4 col-sm-5">
+			<button type="submit" class="btn btn-success">Search</button>
+		</div>
+	</form>
+</div>
+<section id="cart_items">
+	<div class="container">	
+
+		<div class="breadcrumbs">
+			<ol class="breadcrumb">
+
+			</ol>
+		</div>
+
+		
+		<div class="table-responsive cart_info">
+			<table class="table table-condensed">
+
+
+
+
+				<thead>
+					<tr class="cart_menu">
+						<td class="image">Hinh Anh</td>
+						<td class="description">Description</td>
+						
+						
+						
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($list as $row):?>
+						<tr>
+							<td class="cart_product">
+								<a href=""><img  height="60" src="<?php echo base_url('upload/product/'.$row->image_link)?>" alt=""></a>
+							</td>
+							<td class="cart_description">
+								<b> <a href=""> <?php echo $row->name?></b>
+							</td>
+						</tr>
+
+
+					<?php endforeach;?>
+
+				</tbody>
+
+
+			</table>
+			<div class="pagination">
+
+				<li><?php echo $this->pagination->create_links()?></li>
+
+
+			</div>
+		</div>
+
+	</div>	
 	
+
+
+</section>
 
 </body>
 <footer id="footer">
