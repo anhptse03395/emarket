@@ -1,180 +1,226 @@
 <?php
-Class Product extends MY_Controller
+
+/**
+ * Created by PhpStorm.
+ * flash: Administrator
+ * Date: 29-Dec-16
+ * Time: 8:08 PM
+ */
+class Product extends MY_Controller
 {
+
+
     function __construct()
     {
         parent::__construct();
-        //load ra file model
         $this->load->model('product_model');
+
     }
-    
-    /*
-     * Hien thi danh sach san pham
-     */
+
     function index()
     {
-        //lay tong so luong ta ca cac san pham trong websit
-        $total_rows = $this->product_model->get_total();
-        $this->data['total_rows'] = $total_rows;
-        
-        //load ra thu vien phan trang
+        //kiem tra co loc du lieu hay ko
+        $input = array();
+        $id = intval($this->input->post('id'));
+        $input['where'] = array();
+        if ($id > 0) {
+            $input_temp['where']['id'] = $id;
+        }
+        $name = $this->input->post('name');
+        if ($name) {
+            $input['like'] = array('name', $name);
+        }
+        $catalog_id = intval($this->input->post('catalog'));
+        if ($catalog_id) {
+            $input['where']['catalog_id'] = $catalog_id;
+        }
+        //sau khi loc thi tong so du lieu thay doi, dan toi so trang bi thay doi theo
+
+        $this->data['total_rows'] = $this->product_model->get_total($input);
+        // thu vien phan trang
         $this->load->library('pagination');
         $config = array();
-        $config['total_rows'] = $total_rows;//tong tat ca cac san pham tren website
-        $config['base_url']   = admin_url('product/index'); //link hien thi ra danh sach san pham
-        $config['per_page']   = 5;//so luong san pham hien thi tren 1 trang
-        $config['uri_segment'] = 4;//phan doan hien thi ra so trang tren url
+        $config['total_rows'] = $this->data['total_rows'];
+        // neu ko search thi de link phan trang nhu binh thuong
+        // if(!isset($id) || !isset($name) || !isset($catalog_id) )
+        //{
+        $config['base_url'] = admin_url('product/index'); // link hien thi du lieu  
+        // }
+        $config['per_page'] = 2;
+        $config['uri_segment'] = 4;
+        $config['use_page_numbers'] = TRUE;
         $config['next_link']   = 'Trang kế tiếp';
         $config['prev_link']   = 'Trang trước';
         //khoi tao cac cau hinh phan trang
         $this->pagination->initialize($config);
-        
-        $segment = $this->uri->segment(4);
-        $segment = intval($segment);
-        
-        $input = array();
+
+        $segment = intval($this->uri->segment(4));
+
         $input['limit'] = array($config['per_page'], $segment);
-        
-        //kiem tra co thuc hien loc du lieu hay khong
-        $id = $this->input->get('id');
-        $id = intval($id);
-        $input['where'] = array();
-        if($id > 0)
-        {
-            $input['where']['id'] = $id;
-        }
-        $name = $this->input->get('name');
-        if($name)
-        {
-            $input['like'] = array('name', $name);
-        }
-        $catalog_id = $this->input->get('catalog');
-        $catalog_id = intval($catalog_id);
-        if($catalog_id > 0)
-        {
-            $input['where']['catalog_id'] = $catalog_id;
-        }
-        
-        //lay danh sach san pha
-        $list = $this->product_model->get_list($input);
-        $this->data['list'] = $list;
-       
-        //lay danh sach danh muc san pham
+
+        $this->data['list'] = $this->product_model->get_list($input);
+
+        // load filter list
         $this->load->model('catalog_model');
-        $input = array();
-        $input['where'] = array('parent_id' => 0);
-        $catalogs = $this->catalog_model->get_list($input);
-        foreach ($catalogs as $row)
-        {
-            $input['where'] = array('parent_id' => $row->id);
-            $subs = $this->catalog_model->get_list($input);
+        // dat la input_catalog de tranh bi trung voi input cua product
+        $input_catalog['where'] = array('parent_id' => 0);
+        $catalogs = $this->catalog_model->get_list($input_catalog);
+        foreach ($catalogs as $row) {
+            $input_catalog['where'] = array('parent_id' => $row->id);
+            $subs = $this->catalog_model->get_list($input_catalog);
             $row->subs = $subs;
         }
         $this->data['catalogs'] = $catalogs;
-        
-        //lay nội dung của biến message
-        $message = $this->session->flashdata('message');
-        $this->data['message'] = $message;
-        
-        //load view
+        // gan thong bao loi de truyen vao view
+        $this->data['message'] = $this->session->flashdata('message');
         $this->data['temp'] = 'admin/product/index';
         $this->load->view('admin/main', $this->data);
     }
-    
-    /*
-     * Them san pham moi
-     */
-    function add()
+
+    function search()
     {
-        //lay danh sach danh muc san pham
+
+        $this->load->library('form_validation');
+        $this->load->helper('form');
+        //neu co gui form tim kiem
+        if ($this->input->post()) {
+            $this->session->unset_userdata('id');
+            $this->session->unset_userdata('name');
+            $this->session->unset_userdata('catalog');
+            $input['where'] = array();
+            $this->session->set_userdata('id', $this->input->post('id'));
+            if ($this->session->userdata('id')) {
+                $input['where']['id'] = $this->session->userdata('id');
+
+            }
+            $this->session->set_userdata('name', $this->input->post('name'));
+            if ($this->session->userdata('name')) {
+                $input['like'] = array('name', $this->session->userdata('name'));
+
+            }
+            $this->session->set_userdata('catalog', $this->input->post('catalog'));
+            if ($this->session->userdata('catalog')) {
+                $input['where']['catalog_id'] = $this->session->userdata('catalog');
+            }
+        }
+        // cu tim theo session da gui trc do
+        if (($this->session->userdata('id') || $this->session->userdata('name') || $this->session->userdata('catalog'))) {
+            $input['where'] = array();
+            if ($this->session->userdata('id')) {
+                $input['where']['id'] = $this->session->userdata('id');
+
+            }
+            if ($this->session->userdata('name')) {
+                $input['like'] = array('name', $this->session->userdata('name'));
+
+            }
+            if ($this->session->userdata('catalog')) {
+                $input['where']['catalog_id'] = $this->session->userdata('catalog');
+            }
+        }
+
+
+////////////////////////////////
+        $this->data['total_rows'] = $this->product_model->get_total($input);
+        // thu vien phan trang
+        $this->load->library('pagination');
+        $config = array();
+        $config['total_rows'] = $this->data['total_rows'];
+        // neu ko search thi de link phan trang nhu binh thuong
+        // if(!isset($id) || !isset($name) || !isset($catalog_id) )
+        //{
+        $config['base_url'] = admin_url('product/search'); // link hien thi du lieu
+        // }
+        $config['per_page'] = 2;
+        $config['uri_segment'] = 4;
+        $config['use_page_numbers'] = TRUE;
+        $config['next_link']   = 'Trang kế tiếp';
+        $config['prev_link']   = 'Trang trước';
+        //khoi tao cac cau hinh phan trang
+        $this->pagination->initialize($config);
+
+        $segment = intval($this->uri->segment(4));
+
+        $input['limit'] = array($config['per_page'], $segment);
+
+        $this->data['list'] = $this->product_model->get_list($input);
+
+        // load filter list
         $this->load->model('catalog_model');
-        $input = array();
-        $input['where'] = array('parent_id' => 0);
-        $catalogs = $this->catalog_model->get_list($input);
-        foreach ($catalogs as $row)
-        {
-            $input['where'] = array('parent_id' => $row->id);
-            $subs = $this->catalog_model->get_list($input);
+        // dat la input_catalog de tranh bi trung voi input cua product
+        $input_catalog['where'] = array('parent_id' => 0);
+        $catalogs = $this->catalog_model->get_list($input_catalog);
+        foreach ($catalogs as $row) {
+            $input_catalog['where'] = array('parent_id' => $row->id);
+            $subs = $this->catalog_model->get_list($input_catalog);
             $row->subs = $subs;
         }
         $this->data['catalogs'] = $catalogs;
-        
-        //load thư viện validate dữ liệu
+        // gan thong bao loi de truyen vao view
+        $this->data['message'] = $this->session->flashdata('message');
+        $this->data['temp'] = 'admin/product/index';
+        $this->load->view('admin/main', $this->data);
+    }
+
+    function add()
+    {
         $this->load->library('form_validation');
         $this->load->helper('form');
-        
-        //neu ma co du lieu post len thi kiem tra
-        if($this->input->post())
-        {
+        // neu co gui post
+        if ($this->input->post()) {
             $this->form_validation->set_rules('name', 'Tên', 'required');
-            $this->form_validation->set_rules('catalog', 'Thể loại', 'required');
-            $this->form_validation->set_rules('price', 'Giá', 'required');
-            
-            //nhập liệu chính xác
-            if($this->form_validation->run())
-            {
-                //them vao csdl
-                $name        = $this->input->post('name');
-                $catalog_id  = $this->input->post('catalog');
-                $price       = $this->input->post('price');
-                $price       = str_replace(',', '', $price);
-                
+            $this->form_validation->set_rules('catalog', 'the loai', 'required');
+            $this->form_validation->set_rules('price', 'gia', 'required');
 
-                $discount = $this->input->post('discount');
-                $discount = str_replace(',', '', $discount);
-                
-                
-                //lay ten file anh minh hoa duoc update len
+            if ($this->form_validation->run()) {
+                //insert to db
+                $data = array();
+                $data['name'] = $this->input->post('name');
+                $data['catalog_id'] = $this->input->post('catalog');
+                $data['price'] = $this->input->post('price');
+                // xoa dau phay khi nhap tu jquery
+                $data['price'] = str_replace(',', '', $data['price']);
+                //lay ten file anh dai dien
+                $upload_path = './upload/product/';
                 $this->load->library('upload_library');
-                $upload_path = './upload/product';
-                $upload_data = $this->upload_library->upload($upload_path, 'image');  
-                $image_link = '';
-                if(isset($upload_data['file_name']))
-                {
-                    $image_link = $upload_data['file_name'];
+                $upload_data = $this->upload_library->upload($upload_path, 'image');
+                $data['image_link'] = '';
+                if (isset($upload_data['file_name'])) {
+                    $data['image_link'] = $upload_data['file_name'];
                 }
-                //upload cac anh kem theo
-                $image_list = array();
-                $image_list = $this->upload_library->upload_file($upload_path, 'image_list');
-                $image_list = json_encode($image_list);
-                
-                //luu du lieu can them
-                $data = array(
-                    'name'       => $name,
-                    'catalog_id' => $catalog_id,
-                    'price'      => $price,
-                    'image_link' => $image_link,
-                    'image_list' => $image_list,
-                    'discount'   => $discount,
-                    'warranty'   => $this->input->post('warranty'),
-                    'gifts'      => $this->input->post('gifts'),
-                    'site_title' => $this->input->post('site_title'),
-                    'meta_desc'  => $this->input->post('meta_desc'),
-                    'meta_key'   => $this->input->post('meta_key'),
-                    'content'    => $this->input->post('content'),
-                ); 
-                //them moi vao csdl
-                if($this->product_model->create($data))
-                {
-                    //tạo ra nội dung thông báo
-                    $this->session->set_flashdata('message', 'Thêm mới dữ liệu thành công');
-                }else{
-                    $this->session->set_flashdata('message', 'Không thêm được');
-                }
-                //chuyen tới trang danh sách
+                // upload cac anh kem theo
+                $data['image_list'] = array();
+                $data['image_list'] = $this->upload_library->upload_file($upload_path, 'image_list');
+                $data['image_list'] = json_encode($data['image_list']);
+                // khac
+                $data['discount'] = $this->input->post('discount');
+                $data['warranty'] = $this->input->post('warranty');
+                $data['gifts'] = $this->input->post('sale');
+                $data['created'] = now();
+                if ($this->product_model->create($data)) {
+                    $this->session->set_flashdata('message', 'Inserted Succeed');
+                } else $this->session->set_flashdata('message', 'Can not inserted');
+                // chuyen sang trang danh sach
                 redirect(admin_url('product'));
+
             }
         }
-        
-        
-        //load view
+        // load catalog
+        $this->load->model('catalog_model');
+        $input_catalog['where'] = array('parent_id' => 0);
+        $catalogs = $this->catalog_model->get_list($input_catalog);
+        foreach ($catalogs as $row) {
+            $input_catalog['where'] = array('parent_id' => $row->id);
+            $subs = $this->catalog_model->get_list($input_catalog);
+            $row->subs = $subs;
+        }
+        $this->data['catalogs'] = $catalogs;
+
         $this->data['temp'] = 'admin/product/add';
         $this->load->view('admin/main', $this->data);
     }
-    
-    /*
-     * Chinh sua san pham
-     */
+
+    // chinh sua
     function edit()
     {
         $id = $this->uri->rsegment('3');
@@ -186,7 +232,7 @@ Class Product extends MY_Controller
             redirect(admin_url('product'));
         }
         $this->data['product'] = $product;
-       
+
         //lay danh sach danh muc san pham
         $this->load->model('catalog_model');
         $input = array();
@@ -210,7 +256,7 @@ Class Product extends MY_Controller
             $this->form_validation->set_rules('name', 'Tên', 'required');
             $this->form_validation->set_rules('catalog', 'Thể loại', 'required');
             $this->form_validation->set_rules('price', 'Giá', 'required');
-        
+
             //nhập liệu chính xác
             if($this->form_validation->run())
             {
@@ -219,7 +265,7 @@ Class Product extends MY_Controller
                 $catalog_id  = $this->input->post('catalog');
                 $price       = $this->input->post('price');
                 $price       = str_replace(',', '', $price);
-               
+
                 $discount = $this->input->post('discount');
                 $discount = str_replace(',', '', $discount);
                 
@@ -232,12 +278,12 @@ Class Product extends MY_Controller
                 {
                     $image_link = $upload_data['file_name'];
                 }
-            
+
                 //upload cac anh kem theo
                 $image_list = array();
                 $image_list = $this->upload_library->upload_file($upload_path, 'image_list');
                 $image_list_json = json_encode($image_list);
-        
+
                 //luu du lieu can them
                 $data = array(
                     'name'       => $name,
@@ -250,7 +296,7 @@ Class Product extends MY_Controller
                     'meta_desc'  => $this->input->post('meta_desc'),
                     'meta_key'   => $this->input->post('meta_key'),
                     'content'    => $this->input->post('content'),
-                );
+                    );
                 if($image_link != '')
                 {
                     $data['image_link'] = $image_link;
@@ -279,5 +325,51 @@ Class Product extends MY_Controller
         $this->data['temp'] = 'admin/product/edit';
         $this->load->view('admin/main', $this->data);
     }
+
+
+
+function del()
+{
+    $id = intval($this->uri->rsegment(3));
+    $this->__delete($id);
+    $this->session->set_flashdata('message', 'Successs delete');
+    redirect(admin_url('product'));
 }
 
+    // xoa nhieu san pham
+function del_all()
+{
+    $ids = $this->input->post('ids');
+    foreach ($ids as $id)
+        $this->__delete($id);
+
+}
+
+    // ham ho tro xoa nhieu
+private
+function __delete($id)
+{
+    $product = $this->product_model->get_info($id);
+    if (!$product) {
+        $this->session->set_flashdata('message', 'Can not edited');
+        redirect(admin_url('product'));
+    }
+        // xoa
+    $this->product_model->delete($id);
+        // xoa anh
+    $image_link = './upload/product/' . $product->image_link;
+    if (file_exists($image_link)) {
+        unlink($image_link);
+    }
+        //xoa anh kem theo
+    $image_list = json_decode($product->image_list);
+    if (is_array($image_list)) {
+        foreach ($image_list as $img) {
+            $image_link = './upload/product/' . $img;
+            if (file_exists($image_link)) {
+                unlink($image_link);
+            }
+        }
+    }
+}
+}

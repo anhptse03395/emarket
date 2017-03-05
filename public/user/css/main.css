@@ -1571,17 +1571,17 @@ h2.title {
 
 
 .well-searchbox {
- 
-  padding: 19px;
+  
+  padding: 1px;
   position: absolute;
-  z-index: 80;
-  top: 200px;
-  left: : 100px;
-  background: rgba(0, 0, 0, 0.6);
-  margin-bottom: 20px;
-  border: 1px solid #e3e3e3;
-  border-radius: 4px;
 
+  top: 180px;
+  right: 200px;
+
+  margin-bottom: 20px;
+
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
 .well-searchbox label {

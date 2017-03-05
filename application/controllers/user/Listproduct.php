@@ -43,7 +43,7 @@ Class Listproduct extends MY_Controller
         {
             $input['where']['id'] = $id;
         }
-        $name = $this->input->get('name');
+        $name = $this->input->post('name');
         if($name)
         {
             $input['like'] = array('name', $name);
