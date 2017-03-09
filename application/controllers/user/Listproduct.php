@@ -58,7 +58,7 @@ Class Listproduct extends MY_Controller
         //lay danh sach san pha
         $list = $this->product_model->get_list($input);
         $this->data['list'] = $list;
-       
+
         //lay danh sach danh muc san pham
         $this->load->model('catalog_model');
         $input = array();
@@ -76,15 +76,34 @@ Class Listproduct extends MY_Controller
         $message = $this->session->flashdata('message');
         $this->data['message'] = $message;
 
-         $this->load->view('site/listproduct/index',$this->data);
+        $this->load->view('site/listproduct/index',$this->data);
 
         
-        
-        //load view
-     /*   $this->data['temp'] = 'admin/product/index';
-        $this->load->view('admin/main', $this->data);*/
-    }
-    
-    
+ }
+
+ function product_detail()
+ {
+        //lay id san pham muon xem
+    $id = $this->uri->rsegment(3);
+
+    $product = $this->product_model->get_info($id);
+    if(!$product) redirect();
+    $this->data['product'] = $product;
+ 
+
+        //lấy danh sách ảnh sản phẩm kèm theo
+   $image_list = @json_decode($product->image_list);
+    $this->data['image_list'] = $image_list;
+
+        //lay thong tin cua danh mục san pham
+ /*   $catalog = $this->catalog_model->get_info($product->catalog_id);
+    $this->data['catalog'] = $catalog;*/
+
+        //hiển thị ra view
+    $this->load->view('site/product_detail/index',$this->data);
+
+}
+
+
 }
 

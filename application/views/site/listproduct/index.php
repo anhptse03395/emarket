@@ -78,10 +78,10 @@
 						<?php foreach ($list as $row):?>
 							<tr>
 								<td class="cart_product">
-									<a href=""><img  height="60" src="<?php echo base_url('upload/product/'.$row->image_link)?>" alt=""></a>
+									<a href="<?php echo user_url('listproduct/product_detail/'.$row->id)?>"><img  height="60" src="<?php echo base_url('upload/product/'.$row->image_link)?>" alt=""></a>
 								</td>
 								<td class="cart_description">
-									<b> <a href=""> <?php echo $row->name?></b>
+									<b> <a href="<?php echo user_url('listproduct/product_detail/'.$row->id)?>"> <?php echo $row->name?></b>
 								</td>
 							</tr>
 
