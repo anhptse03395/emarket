@@ -8,7 +8,7 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background:;
+  background:#33CC33;
   position: relative;
   font-weight:400px;
 }
@@ -1674,7 +1674,7 @@ h2.title {
 }
 
 #cart_items .cart_info .cart_description h4 a {
-  color: #363432;
+  
   font-family: 'Roboto',sans-serif;
   font-size: 20px;
   font-weight: normal;
@@ -1682,7 +1682,7 @@ h2.title {
 }
 
 #cart_items .cart_info .cart_description p {
-  color:#696763
+  
 }
 
 

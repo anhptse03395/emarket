@@ -46,7 +46,7 @@ Class Listproduct extends MY_Controller
         $name = $this->input->post('name');
         if($name)
         {
-            $input['like'] = array('name', $name);
+            $input['like'] = array('product_name', $name);
         }
         $catalog_id = $this->input->get('catalog');
         $catalog_id = intval($catalog_id);

@@ -21,7 +21,7 @@ function index()
     if($this->form_validation->run())
     {
       $this->session->set_userdata('user_login', true);
-      redirect(base_url('home'));
+      redirect(user_url('profile/listpost'));
     }
   }
 

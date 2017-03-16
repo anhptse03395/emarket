@@ -68,7 +68,9 @@
 					<thead>
 						<tr class="cart_menu">
 							<td class="image">Hinh Anh</td>
-							<td class="description">Description</td>
+							<td class="description">Tên Sản Phẩm</td>
+							<td class="description">Số Lượng</td>
+
 
 
 
@@ -79,13 +81,16 @@
 							<tr>
 								<td class="cart_product">
 									<a href="<?php echo user_url('listproduct/product_detail/'.$row->id)?>"><img  height="60" src="<?php echo base_url('upload/product/'.$row->image_link)?>" alt=""></a>
+									<p> <?php echo $row->user_name ?></p>	
+								</td>
+
+								<td class="cart_description">
+									<a href="<?php echo user_url('listproduct/product_detail/'.$row->id)?>"> <?php echo $row->product_name?>
 								</td>
 								<td class="cart_description">
-									<b> <a href="<?php echo user_url('listproduct/product_detail/'.$row->id)?>"> <?php echo $row->name?></b>
+									<p> <?php echo $row->number?>Kg</p>
 								</td>
 							</tr>
-
-
 						<?php endforeach;?>
 
 					</tbody>

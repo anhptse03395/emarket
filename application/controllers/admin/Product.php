@@ -17,30 +17,54 @@ class Product extends MY_Controller
 
     }
 
-    function index()
+    function removeURL($strTitle)
     {
+     $strTitle=strtolower($strTitle);
+     $strTitle=trim($strTitle);
+     $strTitle=str_replace(' ','-',$strTitle);
+     $strTitle=preg_replace("/(ò|ó|ọ|ỏ|õ|ơ|ờ|ớ|ợ|ở|ỡ|ô|ồ|ố|ộ|ổ|ỗ)/",'o',$strTitle);
+     $strTitle=preg_replace("/(Ò|Ó|Ọ|Ỏ|Õ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ|Ô|Ố|Ổ|Ộ|Ồ|Ỗ)/",'o',$strTitle);
+     $strTitle=preg_replace("/(à|á|ạ|ả|ã|ă|ằ|ắ|ặ|ẳ|ẵ|â|ầ|ấ|ậ|ẩ|ẫ)/",'a',$strTitle);
+     $strTitle=preg_replace("/(À|Á|Ạ|Ả|Ã|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ|Â|Ấ|Ầ|Ậ|Ẩ|Ẫ)/",'a',$strTitle);
+     $strTitle=preg_replace("/(ề|ế|ệ|ể|ê|ễ|é|è|ẻ|ẽ|ẹ)/",'e',$strTitle);
+     $strTitle=preg_replace("/(Ể|Ế|Ệ|Ể|Ê|Ễ|É|È|Ẻ|Ẽ|Ẹ)/",'e',$strTitle);
+     $strTitle=preg_replace("/(ừ|ứ|ự|ử|ư|ữ|ù|ú|ụ|ủ|ũ)/",'u',$strTitle);
+     $strTitle=preg_replace("/(Ừ|Ứ|Ự|Ử|Ư|Ữ|Ù|Ú|Ụ|Ủ|Ũ)/",'u',$strTitle);
+     $strTitle=preg_replace("/(ì|í|ị|ỉ|ĩ)/",'i',$strTitle);
+     $strTitle=preg_replace("/(Ì|Í|Ị|Ỉ|Ĩ)/",'i',$strTitle);
+     $strTitle=preg_replace("/(ỳ|ý|ỵ|ỷ|ỹ)/",'y',$strTitle);
+     $strTitle=preg_replace("/(Ỳ|Ý|Ỵ|Ỷ|Ỹ)/",'y',$strTitle);
+     $strTitle=preg_replace('/(đ|Đ)/','d',$strTitle);
+     $strTitle=preg_replace("/[^-a-zA-Z0-9]/",'',$strTitle);
+     return $strTitle;
+ }
+
+
+
+ function index()
+ {
         //kiem tra co loc du lieu hay ko
-        $input = array();
-        $id = intval($this->input->post('id'));
-        $input['where'] = array();
-        if ($id > 0) {
-            $input_temp['where']['id'] = $id;
-        }
-        $name = $this->input->post('name');
-        if ($name) {
-            $input['like'] = array('name', $name);
-        }
-        $catalog_id = intval($this->input->post('catalog'));
-        if ($catalog_id) {
-            $input['where']['catalog_id'] = $catalog_id;
-        }
+    $input = array();
+    $id = intval($this->input->post('id'));
+    $input['where'] = array();
+    if ($id > 0) {
+        $input_temp['where']['id'] = $id;
+    }
+    $name = $this->input->post('name');
+    if ($name) {
+        $input['like'] = array('name', $name);
+    }
+    $catalog_id = intval($this->input->post('catalog'));
+    if ($catalog_id) {
+        $input['where']['catalog_id'] = $catalog_id;
+    }
         //sau khi loc thi tong so du lieu thay doi, dan toi so trang bi thay doi theo
 
-        $this->data['total_rows'] = $this->product_model->get_total($input);
+    $this->data['total_rows'] = $this->product_model->get_total($input);
         // thu vien phan trang
-        $this->load->library('pagination');
-        $config = array();
-        $config['total_rows'] = $this->data['total_rows'];
+    $this->load->library('pagination');
+    $config = array();
+    $config['total_rows'] = $this->data['total_rows'];
         // neu ko search thi de link phan trang nhu binh thuong
         // if(!isset($id) || !isset($name) || !isset($catalog_id) )
         //{
@@ -79,7 +103,7 @@ class Product extends MY_Controller
 
     function search()
     {
-
+         $input = array();
         $this->load->library('form_validation');
         $this->load->helper('form');
         //neu co gui form tim kiem
@@ -88,12 +112,15 @@ class Product extends MY_Controller
             $this->session->unset_userdata('name');
             $this->session->unset_userdata('catalog');
             $input['where'] = array();
+            
             $this->session->set_userdata('id', $this->input->post('id'));
             if ($this->session->userdata('id')) {
                 $input['where']['id'] = $this->session->userdata('id');
 
             }
-            $this->session->set_userdata('name', $this->input->post('name'));
+            $name= $this->input->post('name');
+
+            $this->session->set_userdata('name',$this->input->post('name'));
             if ($this->session->userdata('name')) {
                 $input['like'] = array('name', $this->session->userdata('name'));
 
@@ -255,7 +282,7 @@ class Product extends MY_Controller
         {
             $this->form_validation->set_rules('name', 'Tên', 'required');
             $this->form_validation->set_rules('catalog', 'Thể loại', 'required');
-            $this->form_validation->set_rules('price', 'Giá', 'required');
+          
 
             //nhập liệu chính xác
             if($this->form_validation->run())
@@ -263,12 +290,6 @@ class Product extends MY_Controller
                 //them vao csdl
                 $name        = $this->input->post('name');
                 $catalog_id  = $this->input->post('catalog');
-                $price       = $this->input->post('price');
-                $price       = str_replace(',', '', $price);
-
-                $discount = $this->input->post('discount');
-                $discount = str_replace(',', '', $discount);
-                
                 //lay ten file anh minh hoa duoc update len
                 $this->load->library('upload_library');
                 $upload_path = './upload/product';
@@ -288,13 +309,6 @@ class Product extends MY_Controller
                 $data = array(
                     'name'       => $name,
                     'catalog_id' => $catalog_id,
-                    'price'      => $price,
-                    'discount'   => $discount,
-                    'warranty'   => $this->input->post('warranty'),
-                    'gifts'      => $this->input->post('gifts'),
-                    'site_title' => $this->input->post('site_title'),
-                    'meta_desc'  => $this->input->post('meta_desc'),
-                    'meta_key'   => $this->input->post('meta_key'),
                     'content'    => $this->input->post('content'),
                     );
                 if($image_link != '')
@@ -328,48 +342,48 @@ class Product extends MY_Controller
 
 
 
-function del()
-{
-    $id = intval($this->uri->rsegment(3));
-    $this->__delete($id);
-    $this->session->set_flashdata('message', 'Successs delete');
-    redirect(admin_url('product'));
-}
-
-    // xoa nhieu san pham
-function del_all()
-{
-    $ids = $this->input->post('ids');
-    foreach ($ids as $id)
+    function del()
+    {
+        $id = intval($this->uri->rsegment(3));
         $this->__delete($id);
-
-}
-
-    // ham ho tro xoa nhieu
-private
-function __delete($id)
-{
-    $product = $this->product_model->get_info($id);
-    if (!$product) {
-        $this->session->set_flashdata('message', 'Can not edited');
+        $this->session->set_flashdata('message', 'Successs delete');
         redirect(admin_url('product'));
     }
-        // xoa
-    $this->product_model->delete($id);
-        // xoa anh
-    $image_link = './upload/product/' . $product->image_link;
-    if (file_exists($image_link)) {
-        unlink($image_link);
+
+    // xoa nhieu san pham
+    function del_all()
+    {
+        $ids = $this->input->post('ids');
+        foreach ($ids as $id)
+            $this->__delete($id);
+
     }
+
+    // ham ho tro xoa nhieu
+    private
+    function __delete($id)
+    {
+        $product = $this->product_model->get_info($id);
+        if (!$product) {
+            $this->session->set_flashdata('message', 'Can not edited');
+            redirect(admin_url('product'));
+        }
+        // xoa
+        $this->product_model->delete($id);
+        // xoa anh
+        $image_link = './upload/product/' . $product->image_link;
+        if (file_exists($image_link)) {
+            unlink($image_link);
+        }
         //xoa anh kem theo
-    $image_list = json_decode($product->image_list);
-    if (is_array($image_list)) {
-        foreach ($image_list as $img) {
-            $image_link = './upload/product/' . $img;
-            if (file_exists($image_link)) {
-                unlink($image_link);
+        $image_list = json_decode($product->image_list);
+        if (is_array($image_list)) {
+            foreach ($image_list as $img) {
+                $image_link = './upload/product/' . $img;
+                if (file_exists($image_link)) {
+                    unlink($image_link);
+                }
             }
         }
     }
-}
 }
