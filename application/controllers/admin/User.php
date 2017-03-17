@@ -35,7 +35,7 @@ Class User extends MY_Controller
     function check_username()
     {
         $name = $this->input->post('name');
-        $where = array('name' => $name);
+        $where = array('user_name' => $name);
         //kiêm tra xem username đã tồn tại chưa
         if($this->user_model->check_exists($where))
         {
@@ -75,7 +75,7 @@ Class User extends MY_Controller
                 $password = $this->input->post('password');
                 
                 $data = array(
-                    'name'     => $name,
+                    'user_name'     => $name,
                     'email' => $email,
                     'phone' => $phone,
                     'address' => $address,
@@ -139,7 +139,7 @@ Class User extends MY_Controller
                 $phone = $this->input->post('phone');
                 $address = $this->input->post('address');
                 $data = array(
-                    'name'     => $name,
+                    'user_name'     => $name,
                     'email' => $email,
                     'phone' => $phone,
                     'address' => $address,

@@ -47,8 +47,8 @@
 					<td class="textC"><?php echo $row->id ?></td>
 
 
-						<td><span title="<?php echo $row->name ?>" class="tipS">
-							<?php echo $row->name ?></span></td>
+						<td><span title="<?php echo $row->user_name ?>" class="tipS">
+							<?php echo $row->user_name ?></span></td>
 
 						<td><span title="<?php echo $row->email ?>" class="tipS">
 							<?php echo $row->email ?></span></td>
@@ -62,7 +62,7 @@
 
 							
 							<td class="option">
-								<a href="<?php echo admin_url('admin/edit/'.$row->id) ?>" title="Chỉnh sửa" class="tipS">
+								<a href="<?php echo admin_url('user/edit/'.$row->id) ?>" title="Chỉnh sửa" class="tipS">
 									<img src="<?php echo public_url('admin') ?>/images/icons/color/edit.png" />
 								</a>
 

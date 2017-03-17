@@ -3,6 +3,9 @@
 
 <div class="line"></div>
 
+
+<?php $this->load->library('form_validation');
+		$this->load->helper('form'); ?>
 <div id="main_product" class="wrapper">
 	<div class="widget">
 
@@ -22,10 +25,10 @@
 
 						<tr>
 							<td style="width:40px;" class="label"><label for="filter_id">Mã số</label></td>
-							<td class="item"><input type="text" style="width:55px;" id="filter_id" value="<?php echo $this->input->get('id')?>" name="id"></td>
+							<td class="item"><input type="text" style="width:55px;" id="filter_id" value="<?php echo set_value('id')?>" name="id"></td>
 							
 							<td style="width:40px;" class="label"><label for="filter_id">Tên</label></td>
-							<td style="width:155px;" class="item"><input type="text" style="width:155px;" id="filter_iname" value="<?php echo $this->input->get('name')?>" name="name"></td>
+							<td style="width:155px;" class="item"><input type="text" style="width:155px;" id="filter_iname" value="<?php echo set_value('name')?>" name="name"></td>
 							
 							<td style="width:60px;" class="label"><label for="filter_status">Thể loại</label></td>
 							<td class="item">
@@ -40,7 +43,7 @@
 												<?php endforeach;?>
 											</optgroup>
 										<?php else:?>
-											<option value="<?php echo $row->id?>" <?php echo ($this->input->get('catalog') == $row->id) ? 'selected' : ''?>><?php echo $row->name?></option>
+											<option value="<?php echo $row->id?>" <?php echo ($this->input->get('catalog') == $row->id) ? 'selected' : ''?>><?php echo $row->product_name?></option>
 										<?php endif;?>
 									<?php endforeach;?>
 								</select>
@@ -100,7 +103,7 @@
 							</div>
 
 							<a target="_blank" title="" class="tipS" href="">
-								<b><?php echo $row->name?></b>
+								<b><?php echo $row->product_name?></b>
 							</a>
 
 

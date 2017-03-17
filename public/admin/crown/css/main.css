@@ -85,7 +85,7 @@ p { padding-top: 12px; }
 
 .line { height: 8px; background: url(../images/divider.png) repeat-x; display: block; }
 .cLine { height: 4px; background: url(../images/contentDivider.png) repeat-x; }
-.sidebarSep { background: url(/images/sidebarSep.png) no-repeat 50%; height: 8px; width: 100%; margin: 16px 0; }
+.sidebarSep { background: url(../images/sidebarSep.png) no-repeat 50%; height: 8px; width: 100%; margin: 16px 0; }
 
 /* Content */
 
@@ -109,7 +109,6 @@ p { padding-top: 12px; }
 
 #leftSide { background: url(../images/backgrounds/leftTop.png) repeat-x 0 0; margin: 0 2px; float: left; width: 216px; padding: 0 1px; padding-bottom: 60px; } 
 #rightSide { padding-bottom: 62px; overflow: hidden; }
-/* fix ccs user */
 
 .scroll { height: 182px; overflow: auto; }
 
