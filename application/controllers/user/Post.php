@@ -4,13 +4,25 @@ Class Post extends MY_controller{
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('dangtin_model');
+		$this->load->model('product_model');
 	}
 
 
 	function index()
 
 	{
+
+		$this->load->model('catalog_model');
+		$input_catalog['where'] = array('parent_id' => 0);
+		$catalogs = $this->catalog_model->get_list($input_catalog);
+		foreach ($catalogs as $row) {
+			$input_catalog['where'] = array('parent_id' => $row->id);
+			$subs = $this->catalog_model->get_list($input_catalog);
+			$row->subs = $subs;
+		}
+		$this->data['catalogs'] = $catalogs;
+
+
 
 		$this->load->library('form_validation');
 		$this->load->helper('form');
@@ -19,32 +31,37 @@ Class Post extends MY_controller{
 		$input['where'] =  array('id' => $user_id );
 		$info= $this->user_model->get_list($input);
 		$this ->data['info']=$info;
-	
-		
+
+
 
         //neu ma co du lieu post len thi kiem tra
 		if($this->input->post())
 
 		{
+
 			$this->form_validation->set_rules('p_name', 'Tên', 'required|min_length[8]');
 			$this->form_validation->set_rules('p_email', 'Email đăng nhập', 'required|min_length[8]');
 			$this->form_validation->set_rules('p_phone', 'Số điện thoại', 'required|min_length[8]|numeric');
+			$this->form_validation->set_rules('catalog', 'Danh Mục', 'required');
 			$this->form_validation->set_rules('p_address', 'Địa chỉ', 'required|min_length[8]');
-			$this->form_validation->set_rules('p_title', 'tieu de', 'required|min_length[8]');
+			$this->form_validation->set_rules('p_product_name', 'Tên sản phẩm', 'required|min_length[8]');
 			$this->form_validation->set_rules('p_content', 'noi dung', 'required|min_length[8]');
 
             //nhập liệu chính xác
 			if($this->form_validation->run())
 			{
                 //them vao csdl
+               
 				$name     = $this->input->post('p_name');
 				$email    = $this->input->post('p_email');
 				$address = $this->input->post('p_address');
 				$phone = $this->input->post('p_phone');
-				$title = $this->input->post('p_title');
+				$product_name = $this->input->post('p_product_name');
 				$content =$this->input->post('p_content');
+				$catalog_id = $this->input->post('catalog');
 
 				$user_id = $this->session->userdata('user_id');
+			
 
 
 				$this->load->library('upload_library');
@@ -62,17 +79,22 @@ Class Post extends MY_controller{
 				$image_list = json_encode($image_list);
 				
 				$data = array(
-					'name'  =>  $name,
+					'user_name'  =>  $name,
 					'email' =>  $email,
+					'catalog_id'=>$catalog_id,
 					'image_link' => $image_link,
 					'image_list' => $image_list,
 					'address'=> $address,
 					'phone' =>  $phone,
-					'title' =>  $title,
+					'product_name' =>  $product_name,
 					'content'=> $content,
 					'user_id'=>	$user_id,
+					'impression' => 1,
+					'number' =>2,
+					'created' => now(),
 					);
-				if($this->dangtin_model->create($data))
+				
+				if($this->product_model->create($data))
 				{
                     //tạo ra nội dung thông báo
 					$this->session->set_flashdata('message', 'Bài đăng thành công');
@@ -85,6 +107,7 @@ Class Post extends MY_controller{
 
 			
 		}
+		
 
 		$this->load->view('site/post/index',$this->data);
 

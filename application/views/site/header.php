@@ -47,12 +47,12 @@
 						<?php } ?>	
 
 						<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-						<li><a href="<?php echo user_url('post') ?>"><i class="fa fa-crosshairs"></i> Đăng tin</a></li>
+						<li><a href="<?php echo user_url('post') ?>"><i class="glyphicon glyphicon-pencil"></i> Đăng tin</a></li>
 						<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 						<?php if(isset($mes)) { ?>
-						<li><a href="<?php echo user_url('user/logout') ?>"><i class="fa fa-lock"></i> Đăng xuất</a></li>
+						<li><a href="<?php echo user_url('user/logout') ?>"><i class="glyphicon glyphicon-log-out"></i> Đăng xuất</a></li>
 						<?php }else{ ?>
-						<li><a href="<?php echo user_url('login') ?>"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+						<li><a href="<?php echo user_url('login') ?>"><i class="glyphicon glyphicon-log-in"></i> Đăng nhập</a></li>
 
 						<?php } ?>
 						

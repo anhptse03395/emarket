@@ -1,4 +1,20 @@
 <html >
+<style>
+	
+	.jumbotron {
+		background: #358CCE;
+		color: #FFF;
+		border-radius: 0px;
+	}
+	.jumbotron-sm { padding-top: 24px;
+		padding-bottom: 24px; }
+		.jumbotron small {
+			color: #FFF;
+		}
+		.h1 small {
+			font-size: 24px;
+		}
+	</style>
 <head>
 	<?php 
 	$this->load->view('site/head');
@@ -11,73 +27,164 @@
 		<?php $this->load->view('site/header'); ?>
 	</div>
 
-	<section id="form_post"><!--form-->
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-4 col-sm-offset-1">
-					<div class="login-form"><!--login form-->
-						
-						<h2>Dang thong tin san pham</h2>
-						<?php  $message = $this->session->flashdata('message');
+	<div class="jumbotron jumbotron-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <h1 class="h1">
+                    Contact us <small>Feel free to contact us</small></h1>
+            </div>
+        </div>
+    </div>
+</div>
+					<?php  $message = $this->session->flashdata('message');
 						?>
 						<?php if(isset($message) && $message):?>
-							<div class="nNote nInformation hideit">
-								<p><strong> </strong><?php echo $message?></p>
+							<div class="alert alert-success">
+								<p style="text-align: center;"><strong> </strong><?php echo $message?></p>
 							</div>
 						<?php endif;?>
-
-						<form action="<?php echo user_url('post') ?>"  method="post" enctype="multipart/form-data" >
-							 <?php foreach ($info as $row):?>
-						
-							<input  type="text" name="p_name" style="text-align: center; " value="<?php echo $row->name?>">
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="well well-sm">
+                <form action="<?php echo user_url('post') ?>"  method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-6">
+                     <?php foreach ($info as $row):?>
+                      <div class="form-group">
+                            <label for="email">
+                                Tên Liên Lạc</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span>
+                                </span>
+                                <input type="text" class="form-control" style="text-align: center;" placeholder=" Tên Liên Lạc" name="p_name" value="<?php echo $row->user_name?>" /></div>
+                        </div>
+                      
+                        <div class="form-group">
+                            <label for="email">
+                                Địa Chỉ Email</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
+                                </span>
+                                <input type="email" class="form-control" placeholder="Enter email" name="p_email" style="text-align: center; " value="<?php echo $row->email?>" /></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">
+                                Số Điện Thoại</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-earphone"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Enter email" name="p_phone" style="text-align: center; " value="<?php echo $row->phone?>" /></div>
+                        </div>
+                    <?php endforeach;?>
 							
-							<input  type="text" name="p_email" style="text-align: center; " value="<?php echo $row->email?>">
 							
-							<input  type="text" name="p_phone" style="text-align: center; " value="<?php echo $row->phone?>">
+                        <div class="form-group">
+                            <label for="subject">
+                                Danh Mục Sản Phẩm</label>
+                                <div class="input-group"> 
+                                  <span class="input-group-addon"><span class="glyphicon glyphicon-earphone"></span>
+                                </span>
+                            <select  name="catalog" class="form-control">
+                            	<option value=""></option>
+					           <?php foreach ($catalogs as $row):?>
+										<?php if(count($row->subs) > 1):?>
+											<optgroup label="<?php echo $row->name?>">
+												<?php foreach ($row->subs as $sub):?>
+													<option value="<?php echo $sub->id?>" <?php echo ($this->input->post('catalog') == $sub->id) ? 'selected' : ''?>> <?php echo $sub->name?> </option>
+												<?php endforeach;?>
+											</optgroup>
+										<?php else:?>
+											<option value="<?php echo $row->id?>" <?php echo ($this->input->post('catalog') == $row->id) ? 'selected' : ''?>><?php echo $row->name?></option>
+										<?php endif;?>
+								<?php endforeach;?>
+                            </select>
+                            	</div>
+                        </div>
 
-							<?php endforeach;?>
-							
-							
+                        <div class="form-group">
+                            <label for="email">
+                                Tên sản phẩm</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-text-height"></span>
+                                </span>
+                                <input type="text" class="form-control"  placeholder=" Tên sản phẩm" name="p_product_name" value="<?php echo set_value('p_product_name')?>" /></div>
+                                <div class="clear error" name="name_error"><?php echo form_error('p_product_name')?></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">
+                                Địa Chỉ</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-inbox"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder=" Địa Chỉ" name="p_address" value="<?php echo set_value('p_address')?>" /></div>
+                                <div class="clear error" name="name_error"><?php echo form_error('p_address')?></div>
 
-							<input placeholder="Title" type="text" name="p_title" value="<?php echo set_value('p_title')?>">
-							<div class="clear error" name="name_error"><?php echo form_error('p_title')?></div>
-							<input placeholder="Content" type="text" name="p_content" value="<?php echo set_value('p_content')?>">
-							<div class="clear error" name="name_error"><?php echo form_error('p_content')?></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">
+                               Hình ảnh</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="	glyphicon glyphicon-picture"></span>
+                                </span>
+                                <input type="file" class="form-control" name="image" id="image" size="10" required="required" />
+                             </div>
+                             <div class="clear error" name="image_error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">
+                               Hình ảnh kèm theo</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th-list"></span>
+                                </span>
+                                <input type="file" class="form-control" multiple="" name="image_list[]" id="image_list" size="40"></div>
+                                <div class="clear error" name="image_list_error"></div>
+                        </div>
 
-							<input placeholder="Address" type="text" name="p_address" value="<?php echo set_value('p_address')?>">
-							<div class="clear error" name="name_error"><?php echo form_error('p_address')?></div>
 
-							<div class="formRow">
-							<label class="formLeft">Hình ảnh:<span class="req"></span></label>
-								<div class="formRight">
-									<div class="left">
-										<input type="file" name="image" id="image" size="10">
-									</div>
-									<div class="clear error" name="image_error"></div>
-								</div>
-								<div class="clear"></div>
-							</div>
-
-							<div class="">
-								<label class="">Ảnh kèm theo:</label>
-								<div class="">
-									<div class="">
-										<input type="file" multiple="" width="100px" name="image_list[]" id="image_list" size="25" >
-									</div>
-									<div class="clear error" name="image_list_error"></div>
-								</div>
-								<div class=""></div>
-							</div>	
-
-							<button type="submit" class="btn btn-default">Post</button>
-						</form>
-					</div>
-				</div>
-				
-				
-			</div>
-		</div>
-	</section>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="email">
+                                Nội Dung</label>
+                                 <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span>
+                                </span>
+                            <textarea type="text" class="form-control" rows="9" cols="25" name="p_content" required="required" placeholder="Nội Dung Đăng Bài"> </textarea> 
+                               
+                        </div>
+                         <div class="clear error" name="name_error"><?php echo form_error('p_content')?></div>
+                        </div>
+  
+                    </div>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary pull-right" >
+                           Đăng Tin</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <form>
+            <legend><span class="glyphicon glyphicon-globe"></span> Our office</legend>
+            <address>
+                <strong>Twitter, Inc.</strong><br>
+                795 Folsom Ave, Suite 600<br>
+                San Francisco, CA 94107<br>
+                <abbr title="Phone">
+                    P:</abbr>
+                (123) 456-7890
+            </address>
+            <address>
+                <strong>Full Name</strong><br>
+                <a href="mailto:#">first.last@example.com</a>
+            </address>
+            </form>
+        </div>
+    </div>
+</div>
 	
 
 
