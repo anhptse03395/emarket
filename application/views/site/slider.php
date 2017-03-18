@@ -12,39 +12,34 @@
 				<div class="carousel-inner">
 					<div class="item">
 						<div class="col-sm-6">
-							<h1><span>E</span>-SHOPPER</h1>
-							<h2>Free E-Commerce Template</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-							<button type="button" class="btn btn-default get">Get it now</button>
+							<h1><span>E</span>-Market</h1>
+							<h2>Chợ đầu mối điện tử</h2>
+							<p>Tiện lợi - An toàn - Nhanh chóng </p>
 						</div>
 						<div class="col-sm-6">
-							<img src="<?php echo public_url('user')?>/images/home/girl1.jpg" class="girl img-responsive" alt="">
-							<img src="<?php echo public_url('user')?>/images/home/pricing.png" class="pricing" alt="">
+							<img src="<?php echo public_url('user')?>/images/home/e-slide1.jpg" class="girl img-responsive" alt="">
 						</div>
 					</div>
 					<div class="item">
 						<div class="col-sm-6">
-							<h1><span>E</span>-SHOPPER</h1>
-							<h2>100% Responsive Design</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-							<button type="button" class="btn btn-default get">Get it now</button>
+							<h1><span>E</span>-Market</h1>
+							<h2>Chợ đầu mối điện tử</h2>
+							<p>Tiện lợi - An toàn - Nhanh chóng </p>
 						</div>
 						<div class="col-sm-6">
-							<img src="<?php echo public_url('user')?>/images/home/girl2.jpg" class="girl img-responsive" alt="">
-							<img src="<?php echo public_url('user')?>/images/home/pricing.png" class="pricing" alt="">
+							<img src="<?php echo public_url('user')?>/images/home/e-slide2.jpg" class="girl img-responsive" alt="">
 						</div>
 					</div>
 					
 					<div class="item active">
 						<div class="col-sm-6">
-							<h1><span>E</span>-SHOPPER</h1>
-							<h2>Free Ecommerce Template</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-							<button type="button" class="btn btn-default get">Get it now</button>
+							<h1><span>E</span>-Market</h1>
+							<h2>Chợ đầu mối điện tử</h2>
+							<p>Tiện lợi - An toàn - Nhanh chóng </p>
+
 						</div>
 						<div class="col-sm-6">
-							<img src="<?php echo public_url('user')?>/images/home/girl3.jpg" class="girl img-responsive" alt="">
-							<img src="<?php echo public_url('user')?>/images/home/pricing.png" class="pricing" alt="">
+							<img src="<?php echo public_url('user')?>/images/home/e-slide3.jpg" class="girl img-responsive" alt="">
 						</div>
 					</div>
 					

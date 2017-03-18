@@ -30,7 +30,7 @@
 		<div class="row">
 			<div class="col-sm-4">
 				<div class="logo pull-left">
-					<a href="index.html"><img src="images/home/logo.png" alt=""></a>
+					<a href="index.html"><img src="<?php echo public_url('user')?>/images/home/e-logo.png" alt=""></a>
 				</div>
 
 			</div>
@@ -98,11 +98,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-sm-3">
-				<div class="search_box pull-right">
-					<input placeholder="Search" type="text">
-				</div>
-			</div>
+
 		</div>
 	</div>
 </div><!--/header-bottom-->

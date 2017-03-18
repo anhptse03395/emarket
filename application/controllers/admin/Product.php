@@ -19,7 +19,7 @@ class Product extends MY_Controller
 
     function removeURL($strTitle)
     {
-     $strTitle=strtolower($strTitle);
+
      $strTitle=trim($strTitle);
      return $strTitle;
  }
@@ -55,9 +55,9 @@ class Product extends MY_Controller
         //{
         $config['base_url'] = admin_url('product/index'); // link hien thi du lieu  
         // }
-        $config['per_page'] = 2;
+        $config['per_page'] = 3;
         $config['uri_segment'] = 4;
-        $config['use_page_numbers'] = TRUE;
+       
         $config['next_link']   = 'Trang kế tiếp';
         $config['prev_link']   = 'Trang trước';
         //khoi tao cac cau hinh phan trang
@@ -101,6 +101,7 @@ class Product extends MY_Controller
             $this->session->set_userdata('id', $this->input->post('id'));
             if ($this->session->userdata('id')) {
                 $input['where']['id'] = $this->session->userdata('id');
+               
 
             }
             $name= $this->input->post('name');
@@ -108,11 +109,22 @@ class Product extends MY_Controller
             $this->session->set_userdata('name',$this->removeURL($name));
             if ($this->session->userdata('name')) {
                 $input['like'] = array('product_name', $this->session->userdata('name'));
+                   $product= $this->product_model->get_list($input);
+                   foreach ($product as $row) {
+                          $data['impression'] = $row->impression + 1;
+                        $this->product_model->update($row->id,$data);    
+                   }
 
             }
             $this->session->set_userdata('catalog', $this->input->post('catalog'));
             if ($this->session->userdata('catalog')) {
                 $input['where']['catalog_id'] = $this->session->userdata('catalog');
+                 $product= $this->product_model->get_list($input);
+                    foreach ($product as $row) {
+                          $data['impression'] = $row->impression + 1;
+                        $this->product_model->update($row->id,$data);    
+                   }
+
             }
         }
         // cu tim theo session da gui trc do
@@ -125,6 +137,7 @@ class Product extends MY_Controller
                 $name=$this->session->userdata('name');
             if ($this->session->userdata('name')) {
                 $input['like'] = array('product_name', $this->removeURL($name));
+                  
 
             }
             if ($this->session->userdata('catalog')) {
@@ -144,9 +157,9 @@ class Product extends MY_Controller
         //{
         $config['base_url'] = admin_url('product/search'); // link hien thi du lieu
         // }
-        $config['per_page'] = 2;
+        $config['per_page'] = 6;
         $config['uri_segment'] = 4;
-        $config['use_page_numbers'] = TRUE;
+       // $config['use_page_numbers'] = TRUE;
         $config['next_link']   = 'Trang kế tiếp';
         $config['prev_link']   = 'Trang trước';
         //khoi tao cac cau hinh phan trang
@@ -156,7 +169,7 @@ class Product extends MY_Controller
 
         $input['limit'] = array($config['per_page'], $segment);
 
-        $this->data['list'] = $this->product_model->get_list($input);
+        $this->data['list'] = $this->product_model->get_list_imp($input);
 
         // load filter list
         $this->load->model('catalog_model');
@@ -293,7 +306,7 @@ class Product extends MY_Controller
 
                 //luu du lieu can them
                 $data = array(
-                    'name'       => $name,
+                    'product_name'       => $name,
                     'catalog_id' => $catalog_id,
                     'content'    => $this->input->post('content'),
                     );
