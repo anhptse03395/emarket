@@ -20,51 +20,67 @@
 
 				</ol>
 			</div>
+			<?php 
+			$this->load->library('form_validation');
+			$this->load->helper('form');
+
+			?>
+
+			<form class="form-horizontal" method="post" action="<?php echo user_url('listproduct/search') ?>">
+				<fieldset>
+
+					<!-- Form Name -->
+					<legend>Các Bài Đăng</legend>
+
+					<!-- Text input-->
+					<div class="form-group">
+						<label class="col-md-4 control-label" >Tên Sản Phẩm</label>  
+						<div class="col-md-4">
+							<input  name="name" type="text" placeholder="Tên sản phẩm" value=" <?php echo set_value('name') ?> " class="form-control input-md">
+
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-md-4 control-label">Danh Mục Sản Phẩm</label>
+						<div class="col-md-2">
+							<select id="selectbasic" name="catalog" class="form-control">
+								<option value="">Danh mục</option>
+
+								<?php foreach ($catalogs as $row):?>
+									<?php if(count($row->subs) > 1):?>
+										<optgroup label="<?php echo $row->name?>">
+											<?php foreach ($row->subs as $sub):?>
+												<option value="<?php echo $sub->id?>" <?php echo ($this->input->get('catalog') == $sub->id) ? 'selected' : ''?>> <?php echo $sub->name?> </option>
+											<?php endforeach;?>
+										</optgroup>
+									<?php else:?>
+										<option value="<?php echo $row->id?>" <?php echo ($this->input->get('catalog') == $row->id) ? 'selected' : ''?>><?php echo $row->name?></option>
+									<?php endif;?>
+								<?php endforeach;?>
+							</select>
+						</div>
+					</div>
+
+					<!-- Button -->
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="submit"></label>
+						<div class="col-md-4">
+							<button  class="btn btn-primary">Tìm Kiếm</button>
+						</div>
+					</div>
+
+				</fieldset>
+			</form>
+
 
 
 			<div class="table-responsive cart_info">
 				<table class="table table-condensed">
 
-
 					<div class="well-searchbox">
-						<form class="form-horizontal" role="form" method="get" action="<?php echo user_url('listproduct')?>"  >
-							<div class="form-group">
-								<label class="col-md-4 control-label">Keyword</label>
-								<div class="col-md-8">
-									<input type="text" class="form-control" placeholder="Keyword" name="name" value="<?php $this->input->get('name') ?>">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-4 control-label">Category</label>
-								<div class="col-md-8">
-								<select class="form-control" placeholder="Category" name="catalog">
-								<option value=""></option>
 
-										<?php foreach ($catalogs as $row):?>
-											<?php if(count($row->subs) > 1):?>
-												<optgroup label="<?php echo $row->name?>">
-													<?php foreach ($row->subs as $sub):?>
-														<option value="<?php echo $sub->id?>" <?php echo ($this->input->get('catalog') == $sub->id) ? 'selected' : ''?>> <?php echo $sub->name?> </option>
-													<?php endforeach;?>
-												</optgroup>
-											<?php else:?>
-												<option value="<?php echo $row->id?>" <?php echo ($this->input->get('catalog') == $row->id) ? 'selected' : ''?>><?php echo $row->name?></option>
-											<?php endif;?>
-										<?php endforeach;?>
-
-									</select>
-								</div>
-							</div>
-							<div class="col-sm-offset-4 col-sm-5">
-								<button type="submit" style="float: left;">Search</button>
-								
-							</div>
-						</form>
 					</div>
-
-
-
-
 					<thead>
 						<tr class="cart_menu">
 							<td class="image">Hinh Anh</td>
@@ -80,47 +96,47 @@
 						<?php foreach ($list as $row):?>
 							<tr>
 								<td class="cart_product">
-									<a href="<?php echo user_url('listproduct/product_detail/'.$row->id)?>"><img  height="60" src="<?php echo base_url('upload/product/'.$row->image_link)?>" alt=""></a>
-									<p> <?php echo $row->user_name ?></p>	
+									<a href="<?php echo user_url('listproduct/product_detail/'.$row->id)?>"><img  height="70" src="<?php echo base_url('upload/product/'.$row->image_link)?>" alt=""></a>
+									<p> <?php echo $row->user_name.' ' ;
+										echo '</br>'.'<h6>'.'ngày đăng'.' :'. mdate('%d-%m-%Y',$row->created).'</h6>' ;
+
+									?></p>	
 								</td>
 
 								<td class="cart_description">
 									<a href="<?php echo user_url('listproduct/product_detail/'.$row->id)?>"> <?php echo $row->product_name?>
-								</td>
-								<td class="cart_description">
-									<p> <?php echo $row->number?>Kg</p>
-								</td>
-							</tr>
-						<?php endforeach;?>
+									</td>
+									<td class="cart_description">
+										<p> <?php echo $row->number?>Kg</p>
+									</td>
+								</tr>
+							<?php endforeach;?>
 
-					</tbody>
-
-
-				</table>
-				<div class="pagination">
-
-					<li><?php echo $this->pagination->create_links()?></li>
+						</tbody>
 
 
+					</table>
+					<div class="pagination">
+
+						<li><?php echo $this->pagination->create_links()?></li>
+
+
+					</div>
 				</div>
-			</div>
 
-		</div>	
-
+			</div>	
 
 
-	</section>
 
-</body>
-<footer id="footer">
-	<?php $this->load->view('site/footer') ?>
+		</section>
 
-</footer>
+	</body>
 
-<script src="<?php echo public_url('user')?>/js/jquery.js"></script>
-<script src="<?php echo public_url('user') ?>/js/bootstrap.min.js"></script>
-<script src="<?php echo public_url('user') ?>/js/jquery.scrollUp.min.js"></script>
-<script src="<?php echo public_url('user') ?>/js/price-range.js"></script>
-<script src="<?php echo public_url('user') ?>/js/jquery.prettyPhoto.js"></script>
-<script src="<?php echo public_url('user') ?>/js/main.js"></script>
-</html>
+
+	<script src="<?php echo public_url('user')?>/js/jquery.js"></script>
+	<script src="<?php echo public_url('user') ?>/js/bootstrap.min.js"></script>
+	<script src="<?php echo public_url('user') ?>/js/jquery.scrollUp.min.js"></script>
+	<script src="<?php echo public_url('user') ?>/js/price-range.js"></script>
+	<script src="<?php echo public_url('user') ?>/js/jquery.prettyPhoto.js"></script>
+	<script src="<?php echo public_url('user') ?>/js/main.js"></script>
+	</html>

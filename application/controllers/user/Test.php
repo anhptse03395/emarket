@@ -62,3 +62,37 @@ Class Test extends MY_controller{
 
 		}
 	}
+
+			<form class="form-horizontal" role="form" method="get" action="<?php echo user_url('listproduct')?>"  >
+							<div class="form-group">
+								<label class="col-md-4 control-label">Keyword</label>
+								<div class="col-md-8">
+									<input type="text" class="form-control" placeholder="Keyword" name="name" value="<?php $this->input->get('name') ?>">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-4 control-label">Category</label>
+								<div class="col-md-8">
+								<select class="form-control" placeholder="Category" name="catalog">
+								<option value=""></option>
+
+										<?php foreach ($catalogs as $row):?>
+											<?php if(count($row->subs) > 1):?>
+												<optgroup label="<?php echo $row->name?>">
+													<?php foreach ($row->subs as $sub):?>
+														<option value="<?php echo $sub->id?>" <?php echo ($this->input->get('catalog') == $sub->id) ? 'selected' : ''?>> <?php echo $sub->name?> </option>
+													<?php endforeach;?>
+												</optgroup>
+											<?php else:?>
+												<option value="<?php echo $row->id?>" <?php echo ($this->input->get('catalog') == $row->id) ? 'selected' : ''?>><?php echo $row->name?></option>
+											<?php endif;?>
+										<?php endforeach;?>
+
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-offset-4 col-sm-5">
+								<button type="submit" style="float: left;">Search</button>
+								
+							</div>
+						</form>
