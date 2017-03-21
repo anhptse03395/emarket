@@ -31,8 +31,8 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-lg-12">
-                <h1 class="h1">
-                    Contact us <small>Feel free to contact us</small></h1>
+                <h2 class="h2" style="color: blue">
+                    Đăng thông tin sản phẩm <small>chính xác an toàn</small></h1>
             </div>
         </div>
     </div>
@@ -84,10 +84,10 @@
                             <label for="subject">
                                 Danh Mục Sản Phẩm</label>
                                 <div class="input-group"> 
-                                  <span class="input-group-addon"><span class="glyphicon glyphicon-earphone"></span>
+                                  <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>
                                 </span>
                             <select  name="catalog" class="form-control">
-                            	<option value=""></option>
+                            	<option value="">Danh mục</option>
 					           <?php foreach ($catalogs as $row):?>
 										<?php if(count($row->subs) > 1):?>
 											<optgroup label="<?php echo $row->name?>">
@@ -109,8 +109,17 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-text-height"></span>
                                 </span>
-                                <input type="text" class="form-control"  placeholder=" Tên sản phẩm" name="p_product_name" value="<?php echo set_value('p_product_name')?>" /></div>
+                                <input type="text" class="form-control"  placeholder=" Tên sản phẩm" name="p_product_name" value="<?php echo set_value('p_product_name')?>" required="required" /></div>
                                 <div class="clear error" name="name_error"><?php echo form_error('p_product_name')?></div>
+                        </div>
+                         <div class="form-group">
+                            <label for="email">
+                                Số lượng/Kg</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-hdd"></span>
+                                </span>
+                                <input type="text" style="width: 50%" class="form-control"  placeholder="Số lượng/kg" name="p_number" value="<?php echo set_value('p_number')?>" required="required" /></div>
+                                <div class="clear error" name="name_error"><?php echo form_error('p_number')?></div>
                         </div>
                         <div class="form-group">
                             <label for="email">
@@ -128,7 +137,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="	glyphicon glyphicon-picture"></span>
                                 </span>
-                                <input type="file" class="form-control" name="image" id="image" size="10" required="required" />
+                                <input type="file" class="form-control" name="image" id="image" size="10" required="required"  value="<?php echo set_value('image'); ?>" />
                              </div>
                              <div class="clear error" name="image_error"></div>
                         </div>
@@ -151,7 +160,7 @@
                                  <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span>
                                 </span>
-                            <textarea type="text" class="form-control" rows="9" cols="25" name="p_content" required="required" placeholder="Nội Dung Đăng Bài"> </textarea> 
+                            <textarea type="text" class="form-control" rows="9" cols="25" name="p_content" required="required" placeholder="Nội Dung Đăng Bài"><?=set_value('p_content')?></textarea>
                                
                         </div>
                          <div class="clear error" name="name_error"><?php echo form_error('p_content')?></div>
@@ -171,8 +180,8 @@
             <legend><span class="glyphicon glyphicon-globe"></span> Our office</legend>
             <address>
                 <strong>Twitter, Inc.</strong><br>
-                795 Folsom Ave, Suite 600<br>
-                San Francisco, CA 94107<br>
+                FPT University<br>
+                Hà Nội Thạch Thất<br>
                 <abbr title="Phone">
                     P:</abbr>
                 (123) 456-7890

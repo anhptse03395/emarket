@@ -74,14 +74,32 @@ Class Profile extends MY_controller{
 
     function listpost(){
 
-        $total_rows = $this->product_model->get_total();
-        $this->data['total_rows'] = $total_rows;
+
+
+            //kiem tra co thuc hien loc du lieu hay khong
+       
+        $id = $this->session->userdata('user_id');
+
+        $input = array();
+        if($id > 0)
+        {
+            $input['where']['user_id'] = $id;
+        }
+        $name = $this->input->get('name');
+        if($name)
+        {
+            $input['like'] = array('name', $name);
+        }
+
+  
+
+     $total_rows= $this->product_model->get_total($input);
 
             //load ra thu vien phan trang
         $this->load->library('pagination');
-        $config = array();
-            $config['total_rows'] = $total_rows;//tong tat ca cac san pham tren website
-            $config['base_url']   = user_url('listproduct/index'); //link hien thi ra danh sach san pham
+            $config = array();
+            $config['total_rows'] =$total_rows;//tong tat ca cac san pham tren website
+            $config['base_url']   = user_url('profile/listpost'); //link hien thi ra danh sach san pham
             $config['per_page']   = 5;//so luong san pham hien thi tren 1 trang
             $config['uri_segment'] = 4;//phan doan hien thi ra so trang tren url
             $config['next_link']   = 'Trang kế tiếp';
@@ -91,32 +109,13 @@ Class Profile extends MY_controller{
 
             $segment = $this->uri->segment(4);
             $segment = intval($segment);
+        
 
-            $input = array();
             $input['limit'] = array($config['per_page'], $segment);
-
-            //kiem tra co thuc hien loc du lieu hay khong
-            $id = $this->input->get('id');
-            $id = $this->session->userdata('user_id');
-
-            $input['where'] = array();
-            if($id > 0)
-            {
-                $input['where']['user_id'] = $id;
-            }
-            $name = $this->input->get('name');
-            if($name)
-            {
-                $input['like'] = array('name', $name);
-            }
-
-            //lay danh sach san pha
+          //lay danh sach san pha
             $list = $this->product_model->get_list($input);
             $this->data['list'] = $list;
-
-
-
-            //lay nội dung của biến message
+         
             $message = $this->session->flashdata('message');
             $this->data['message'] = $message;
 

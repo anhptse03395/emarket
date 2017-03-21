@@ -256,6 +256,10 @@ class MY_Model extends CI_Model {
       {
         $this->db->like($input['like'][0], $input['like'][1]); 
       }
+      if ((isset($input['select'])) && $input['select'])
+      {
+        $this->db->select($input['select']); 
+      }
       
         // Thêm sắp xếp dữ liệu thông qua biến $input['order'] 
         //(ví dụ $input['order'] = array('id','DESC'))
@@ -325,6 +329,7 @@ class MY_Model extends CI_Model {
       {
         $this->db->like($input['like'][0], $input['like'][1]); 
       }
+      
       
         // Thêm sắp xếp dữ liệu thông qua biến $input['order'] 
         //(ví dụ $input['order'] = array('id','DESC'))

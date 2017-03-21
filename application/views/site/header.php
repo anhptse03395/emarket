@@ -41,9 +41,9 @@
 						<?php $mes = $this->session->userdata('user_login');?>
 
 						<?php if(isset($mes)) {?>
-						<li style="display: block;" ><a href="#"><i class="fa fa-user" ></i> Tài khoản</a></li>
+						<li style="display: block;" ><a href="<?php echo user_url('profile')?>"><i class="fa fa-user" ></i> Tài khoản</a></li>
 						<?php }else{ ?>
-						<li style="display: none;" ><a href="#"><i class="fa fa-user" ></i> Tài khoản</a></li>
+						<li style="display: none;" ><a href=" "><i class="fa fa-user" ></i> Tài khoản</a></li>
 						<?php } ?>	
 
 						<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>

@@ -42,10 +42,11 @@ Class Post extends MY_controller{
 			$this->form_validation->set_rules('p_name', 'Tên', 'required|min_length[8]');
 			$this->form_validation->set_rules('p_email', 'Email đăng nhập', 'required|min_length[8]');
 			$this->form_validation->set_rules('p_phone', 'Số điện thoại', 'required|min_length[8]|numeric');
+			$this->form_validation->set_rules('p_number', 'Số lượng', 'required|numeric');
 			$this->form_validation->set_rules('catalog', 'Danh Mục', 'required');
 			$this->form_validation->set_rules('p_address', 'Địa chỉ', 'required|min_length[8]');
 			$this->form_validation->set_rules('p_product_name', 'Tên sản phẩm', 'required|min_length[8]');
-			$this->form_validation->set_rules('p_content', 'noi dung', 'required|min_length[8]');
+			$this->form_validation->set_rules('p_content', 'Nội dung', 'required|min_length[8]');
 
             //nhập liệu chính xác
 			if($this->form_validation->run())
@@ -56,6 +57,7 @@ Class Post extends MY_controller{
 				$email    = $this->input->post('p_email');
 				$address = $this->input->post('p_address');
 				$phone = $this->input->post('p_phone');
+				$number = $this->input->post('p_number');
 				$product_name = $this->input->post('p_product_name');
 				$content =$this->input->post('p_content');
 				$catalog_id = $this->input->post('catalog');
@@ -86,11 +88,11 @@ Class Post extends MY_controller{
 					'image_list' => $image_list,
 					'address'=> $address,
 					'phone' =>  $phone,
+					'number'=> $number,
 					'product_name' =>  $product_name,
 					'content'=> $content,
 					'user_id'=>	$user_id,
 					'impression' => 1,
-					'number' =>2,
 					'created' => now(),
 					);
 				

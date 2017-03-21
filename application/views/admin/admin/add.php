@@ -54,6 +54,24 @@
 					<div class="clear"></div>
 				</div>
 
+				<div class="formRow">
+					<label class="formLeft" for="param_name">Phan Quyen:<span class="req">*</span></label>
+					<div class="formRight">
+						<?php foreach ($config_permissions  as $controller => $action):?> 
+							<div>
+								<label><b><?php echo $controller?>:</b></label>
+								<?php foreach ($action as $action):?>
+								<label><input type="checkbox" name="permissions[<?php echo $controller?>][]" value="<?php echo $action?>" /><?php echo $action?></label>
+								<?php endforeach;?>
+							</div>
+							<div class="clear"></div>
+						<?php endforeach;?>
+													
+					</div>
+					<div class="clear"></div>
+					
+				</div>
+
 				<div class="formSubmit">
 					<input type="submit" value="Thêm mới" class="redB">
 

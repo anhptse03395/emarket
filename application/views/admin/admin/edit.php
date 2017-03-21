@@ -16,7 +16,7 @@
 				<div class="formRow">
                 	<label for="param_name" class="formLeft">Tên:<span class="req">*</span></label>
                 	<div class="formRight">
-                		<span class="oneTwo"><input type="text" _autocheck="true" id="param_name" value="<?php echo $info->user_name?>" name ="name"></span>
+                		<span class="oneTwo"><input type="text" _autocheck="true" id="param_name" value="<?php echo $info->name?>" name ="name"></span>
                 		<span class="autocheck" name="name_autocheck"></span>
                 		<div class="clear error" name="name_error"><?php echo form_error('name')?></div>
                 	</div>
@@ -25,7 +25,7 @@
 				<div class="formRow">
 					<label for="param_username" class="formLeft">Username:<span class="req">*</span></label>
 					<div class="formRight">
-						<span class="oneTwo"><input type="text" _autocheck="true" value="<?php echo $info->user_name ?>" id="param_username" name="username"></span>
+						<span class="oneTwo"><input type="text" _autocheck="true" value="<?php echo $info->username ?>" id="param_username" name="username"></span>
 						<span class="autocheck" name="name_autocheck"></span>
 						<div class="clear error" name="name_error"><?php echo form_error('username')?></div>
 					</div>
@@ -54,6 +54,33 @@
 					</div>
 					<div class="clear"></div>
 				</div>
+
+
+ 				<div class="formRow">
+					<label class="formLeft" for="param_name">Phan Quyen:<span class="req">*</span></label>
+					<div class="formRight">
+						<?php foreach ($config_permissions  as $controller => $action):?>
+							<?php
+								$permissions_action = array();
+								if(isset($info->permissions->{$controller})){
+									$permissions_action = $info->permissions->{$controller};
+								}
+							?> 
+							<div>
+								<label><b><?php echo $controller?>:</b></label>
+								<?php foreach ($action as $action):?>
+								<label><input type="checkbox" name="permissions[<?php echo $controller?>][]" value="<?php echo $action?>" <?php echo(in_array($action, $permissions_action)) ? 'checked' : ''?> /><?php echo $action?></label>
+								<?php endforeach;?>
+								<div class="clear"></div>
+							</div>
+						<?php endforeach;?>
+
+							
+						
+					</div>
+					<div class="clear"></div>
+				</div>
+
 
 				<div class="formSubmit">
 					<input type="submit" value="Cap nhat" class="redB">

@@ -12,7 +12,7 @@
 				</a></li>
 				
 				<!-- Logout -->
-				<li><a href="<?php echo admin_url('admin/logout')?>">
+				<li><a href="<?php echo admin_url('home/logout')?>">
 					<img alt="" src="<?php echo public_url('admin')?>/images/icons/topnav/logout.png">
 					<span>Đăng xuất</span>
 				</a></li>

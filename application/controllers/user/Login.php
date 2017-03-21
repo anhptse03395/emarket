@@ -25,7 +25,7 @@ function index()
     }
   }
 
-  $this->load->view('site/login/index');
+  $this->load->view('site/login/index1');
 }
 
     /*

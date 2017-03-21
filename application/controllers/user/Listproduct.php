@@ -16,6 +16,7 @@ Class Listproduct extends MY_Controller
     {
 
        $strTitle=trim($strTitle);
+        $strTitle= preg_replace("/ {2,}/", " ", $strTitle);
        return $strTitle;
    }
 
@@ -150,17 +151,17 @@ function search()
 
 
 ////////////////////////////////
-        $this->data['total_rows'] = $this->product_model->get_total($input);
+       $total_rows = $this->product_model->get_total($input);
         // thu vien phan trang
         $this->load->library('pagination');
         $config = array();
-        $config['total_rows'] = $this->data['total_rows'];
+        $config['total_rows'] = $total_rows;
         // neu ko search thi de link phan trang nhu binh thuong
         // if(!isset($id) || !isset($name) || !isset($catalog_id) )
         //{
         $config['base_url'] = user_url('listproduct/search'); // link hien thi du lieu
         // }
-        $config['per_page'] = 6;
+        $config['per_page'] = 5;
         $config['uri_segment'] = 4;
        // $config['use_page_numbers'] = TRUE;
         $config['next_link']   = 'Trang kế tiếp';

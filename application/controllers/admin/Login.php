@@ -25,20 +25,22 @@ Class Login extends MY_controller{
     /*
      * Kiem tra username va password co chinh xac khong
      */
-    function check_login()
+   function check_login()
     {
-    	$username = $this->input->post('username');
-    	
-    	$password = $this->input->post('password');
+        $username = $this->input->post('username');
+        
+        $password = $this->input->post('password');
 
-    	$password = md5($password);
+        $password = md5($password);
 
 
-    	$this->load->model('admin_model');
-    	$where = array('username' => $username , 'password' => $password);
-    	if($this->admin_model->check_exists($where))
-    	{
-         $this ->session ->set_userdata('admininfo',$username) ;
+        $this->load->model('admin_model');
+        $where = array('username' => $username , 'password' => $password);
+        $admin = $this->admin_model->get_info_rule($where);
+        if($admin)
+        {
+         $this ->session ->set_userdata('permissions',json_decode($admin->permissions)) ;
+         $this ->session ->set_userdata('admin_id',$admin->id) ;
          
          return true;
      }

@@ -1,5 +1,5 @@
 	<div class="form_main col-md-4 col-sm-5 col-xs-7">
-        <h4 class="heading"><strong>Personal </strong> Contact <span></span></h4>
+        <h4 class="heading"><strong>Thông tin </strong> cá nhân <span></span></h4>
         <div class="form">
             <form action="<?php echo user_url('profile') ?>" method="post" id="contactFrm" name="contactFrm">
                 <?php echo form_hidden('profile', 1) ?>

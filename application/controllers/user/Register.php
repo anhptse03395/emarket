@@ -119,7 +119,7 @@ Class Register extends MY_controller{
 	    			redirect(user_url('register'));
 	    		}
 	    	}
-	    	$this->load->view('site/login/index');
+	    	$this->load->view('site/register/index');
 
 
 	    }

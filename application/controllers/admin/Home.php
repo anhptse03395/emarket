@@ -6,5 +6,15 @@ class Home extends MY_Controller{
 		$this ->load->view('admin/main', $this ->data);
 	}
 
+	 
+    function logout()
+    {
+        if($this->session->userdata('login'))
+        {
+            $this->session->unset_userdata('login');
+        }
+        redirect(admin_url('login'));
+    }
+
 }
 ?>

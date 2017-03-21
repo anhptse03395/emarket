@@ -18,30 +18,30 @@
 				<!-- SIDEBAR MENU -->
 				<div class="profile-usermenu">
 					<ul class="nav">
-						<li class="active">
-							<a href="#">
-							<i class="glyphicon glyphicon-home"></i>
-							<span class="hidden-xs">Personal<span> </a>
-						</li>
-						<li>
-							<a href="#">
+						<li >
+							<a href="<?php echo user_url('profile')?>">
 							<i class="glyphicon glyphicon-user"></i>
-							<span class="hidden-xs">Delivery Address<span> </a>
+							<span class="hidden-xs">Cá Nhân<span> </a>
+						</li>
+						<li>
+							<a href="<?php echo user_url('profile/listpost') ?>">
+							<i class="glyphicon glyphicon-tasks"></i>
+							<span class="hidden-xs">Tin đăng của tôi<span> </a>
 						</li>
 						<li>
 							<a href="#">
-							<i class="glyphicon glyphicon-ok"></i>
-							<span class="hidden-xs">Orders <span></a>
+							<i class="glyphicon glyphicon-send"></i>
+							<span class="hidden-xs">Đơn hàng của tôi <span></a>
 						</li>
 						<li>
 							<a href="#">
-							<i class="glyphicon glyphicon-flag"></i>
-							<span class="hidden-xs">My Wishlist <span></a>
+							<i class="glyphicon glyphicon-th-list"></i>
+							<span class="hidden-xs">Đơn hàng của khách <span></a>
 						</li>
                             <li>
 							<a href="#">
-							<i class="glyphicon glyphicon-shopping-cart"></i>
-							<span class="hidden-xs">Shopping Bag<span> </a>
+							<i class="glyphicon glyphicon-list-alt"></i>
+							<span class="hidden-xs">Quản lý công nợ <span> </a>
                             
 						</li>
                         

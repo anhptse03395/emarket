@@ -3,7 +3,7 @@ Class Admin extends MY_Controller
 {
     function __construct()
     {
-    	 
+         
 
         parent::__construct();
         $this->load->model('admin_model');
@@ -34,10 +34,22 @@ Class Admin extends MY_Controller
      */
     function check_username()
     {
+        $action = $this->uri->rsegment(2);
         $username = $this->input->post('username');
         $where = array('username' => $username);
+
+        
+        $check = 'true';
+        if($action == 'edit'){
+            $info = $this->data['info']; //lay thong tin quan tri vien muon sua
+            if($info->username == $username){
+                $check = false;
+            }
+        }
+        
+
         //kiêm tra xem username đã tồn tại chưa
-        if($this->admin_model->check_exists($where))
+        if($check && $this->admin_model->check_exists($where))
         {
             //trả về thông báo lỗi
             $this->form_validation->set_message(__FUNCTION__, 'Tài khoản đã tồn tại');
@@ -75,6 +87,10 @@ Class Admin extends MY_Controller
                     'username' => $username,
                     'password' => md5($password)
                 );
+
+
+                $permissions = $this->input->post('permissions');
+                $data['permissions'] = json_encode($permissions);
                 if($this->admin_model->create($data))
                 { 
                     //tạo ra nội dung thông báo
@@ -86,6 +102,10 @@ Class Admin extends MY_Controller
                 redirect(admin_url('admin'));
             }
         }
+
+        $this->config->load('permissions', true);
+        $config_permissions = $this->config->item('permissions');
+        $this->data['config_permissions'] = $config_permissions;
         
         $this->data['temp'] = 'admin/admin/add';
         $this->load->view('admin/main', $this->data);
@@ -110,6 +130,9 @@ Class Admin extends MY_Controller
             $this->session->set_flashdata('message', 'Không tồn tại quản trị viên');
             redirect(admin_url('admin'));
         }
+
+        $info->permissions = json_decode($info->permissions);
+
         $this->data['info'] = $info;
         
         if($this->input->post())
@@ -138,6 +161,9 @@ Class Admin extends MY_Controller
                 {
                     $data['password'] = md5($password);
                 }
+
+                $permissions = $this->input->post('permissions');
+                $data['permissions'] = json_encode($permissions);
                 
                 if($this->admin_model->update($id, $data))
                 {
@@ -151,6 +177,10 @@ Class Admin extends MY_Controller
             }
         }
         
+        $this->config->load('permissions', true);
+        $config_permissions = $this->config->item('permissions');
+        $this->data['config_permissions'] = $config_permissions;
+
         $this->data['temp'] = 'admin/admin/edit';
         $this->load->view('admin/main', $this->data);
     }
@@ -175,20 +205,11 @@ Class Admin extends MY_Controller
         $this->session->set_flashdata('message', 'Xóa dữ liệu thành công');
         redirect(admin_url('admin'));
     }
-    
-    /*
-     * Thuc hien dang xuat
-     */
-    
-    function logout()
-    {
-        if($this->session->userdata('login'))
-        {
-            $this->session->unset_userdata('login');
-        }
-        redirect(admin_url('login'));
-    }
-}
 
+    
+    
+    
+}
+?>
 
 
